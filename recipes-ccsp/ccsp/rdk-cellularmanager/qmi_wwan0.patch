@@ -1,0 +1,56 @@
+diff -Naur git.orig/source/CellularManager/cellular_hal_mm_apis.c git/source/CellularManager/cellular_hal_mm_apis.c
+--- git.orig/source/CellularManager/cellular_hal_mm_apis.c      2023-05-01 01:57:24.855799608 +0000
++++ git/source/CellularManager/cellular_hal_mm_apis.c   2023-05-01 01:57:08.556219460 +0000
+@@ -33,7 +33,12 @@
+ #define MODEM_PATH_PREFIX   "/org/freedesktop/ModemManager1/Modem/"
+ #define SIM_PATH_PREFIX   "/org/freedesktop/ModemManager1/SIM/"
+ #define BEARER_PATH_PREFIX   "/org/freedesktop/ModemManager1/Bearer/"
++
++#if defined WITH_QMI
++#define WAN_INTERFACE_NAME "wwan0"
++#else
+ #define WAN_INTERFACE_NAME "ccmniX"
++#endif
+
+ /* Context */
+ typedef struct {
+@@ -540,8 +545,13 @@
+
+             if( deviceStatusCB )
+             {
++#if defined WITH_QMI
++                deviceStatusCB->device_open_status_cb( "cdc-wdm0", WAN_INTERFACE_NAME, DEVICE_OPEN_STATUS_NOT_READY, CELLULAR_MODEM_SET_OFFLINE );
++                deviceStatusCB->device_remove_status_cb( "cdc-wdm0", DEVICE_REMOVED );
++#else
+                 deviceStatusCB->device_open_status_cb( "ccmniX", WAN_INTERFACE_NAME, DEVICE_OPEN_STATUS_NOT_READY, CELLULAR_MODEM_SET_OFFLINE );
+                 deviceStatusCB->device_remove_status_cb( "ccmniX", DEVICE_REMOVED );
++#endif
+             }
+             if( slot_status_cb )
+                 slot_status_cb( "unknown", "unknown", -1, DEVICE_SLOT_STATUS_NOT_READY );
+@@ -552,8 +562,12 @@
+         if( new_state == MODEM_STATE_ENABLED )
+         {
+             if( deviceStatusCB )
++#if defined WITH_QMI
++                deviceStatusCB->device_open_status_cb( "cdc-wdm0", WAN_INTERFACE_NAME, DEVICE_OPEN_STATUS_NOT_READY, CELLULAR_MODEM_SET_OFFLINE );
++#else
+                 deviceStatusCB->device_open_status_cb( "ccmniX", WAN_INTERFACE_NAME, DEVICE_OPEN_STATUS_NOT_READY, CELLULAR_MODEM_SET_OFFLINE );
+-
++#endif
++
+             if( slot_status_cb )
+                 slot_status_cb( "unknown", "unknown", -1, DEVICE_SLOT_STATUS_NOT_READY );
+         }
+@@ -1950,7 +1964,11 @@
+     }
+
+     if( mmState >= MODEM_STATE_DISABLED && mmState != MODEM_STATE_DISABLING )
++#if defined WITH_QMI
++        deviceStatusCB->device_open_status_cb( "cdc-wdm0", WAN_INTERFACE_NAME, DEVICE_OPEN_STATUS_READY, CELLULAR_MODEM_SET_ONLINE );
++#else
+         deviceStatusCB->device_open_status_cb( "ccmniX", WAN_INTERFACE_NAME, DEVICE_OPEN_STATUS_READY, CELLULAR_MODEM_SET_ONLINE );
++#endif
+ }
+
+ void cellular_hal_mm_send_network_status(CellularNetworkCBStruct *network_status_cb)
