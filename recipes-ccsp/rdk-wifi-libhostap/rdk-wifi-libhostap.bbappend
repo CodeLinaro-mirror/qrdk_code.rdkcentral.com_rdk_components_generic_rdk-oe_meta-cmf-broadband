@@ -7,11 +7,11 @@ S = "${WORKDIR}/git"
 SRC_URI += "git://w1.fi/hostap.git;protocol=https;branch=main;destsuffix=${S}/source/hostap-2.10"
 SRCREV = "9d07b9447e76059a2ddef2a879c57d0934634188"
 
-SRC_URI += "https://w1.fi/cgit/hostap/snapshot/hostap_2_9.tar.gz"
-SRC_URI[sha256sum] = "cb8ddbab4bf715aeeae67fbb06d85995fccb6f6180968247ea1aff250115ad44"
+SRC_URI += "https://w1.fi/releases/hostapd-2.9.tar.gz"
+SRC_URI[sha256sum] = "881d7d6a90b2428479288d64233151448f8990ab4958e0ecaca7eeb3c9db2bd7"
 
 do_dir_align() {
-    mv ${WORKDIR}/hostap_2_9 ${S}/source/hostap-2.9
+    mv ${WORKDIR}/hostapd-2.9 ${S}/source/hostap-2.9
 }
 addtask dir_align after do_unpack before do_patch
 
