@@ -27,7 +27,7 @@ inherit coverity
 
 require recipes-ccsp/ccsp/ccsp_common.inc
 
-inherit autotools pkgconfig systemd ${@bb.utils.contains("DISTRO_FEATURES", "kirkstone", "python3native", "pythonnative", d)}
+inherit autotools pkgconfig systemd ${@bb.utils.contains_any("DISTRO_FEATURES", "kirkstone scarthgap", "python3native", "pythonnative", d)}
 EXTRA_OECONF_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', 'IS_HYBRID_SUPPORT=true', '', d)}"
 
 CFLAGS_append = " \
@@ -55,6 +55,7 @@ LDFLAGS += " -lgobject-2.0 -lgio-2.0 -lglib-2.0 -lgudev-1.0 -lqmi-glib"
 CFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'safec',  ' `pkg-config --cflags libsafec`', '-fPIC', d)}"
 LDFLAGS_append_dunfell = "${@bb.utils.contains('DISTRO_FEATURES', 'safec', ' -lsafec-3.5.1 ', '', d)}"
 LDFLAGS_append_kirkstone = " ${@bb.utils.contains('DISTRO_FEATURES', 'safec', ' -lsafec ', '', d)}"
+LDFLAGS:append:scarthgap = " ${@bb.utils.contains('DISTRO_FEATURES', 'safec', ' -lsafec ', '', d)}"
 
 CFLAGS += "-I${STAGING_INCDIR}/libmm-glib/"
 CFLAGS += "-I${STAGING_INCDIR}/ModemManager/"
