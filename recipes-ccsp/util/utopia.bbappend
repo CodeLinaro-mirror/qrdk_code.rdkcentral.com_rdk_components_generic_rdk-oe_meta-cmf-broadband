@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 PV_kirkstone = "${RDK_RELEASE}+git${SRCPV}"
 SRC_URI += "file://udhcpc.script"
@@ -7,13 +7,13 @@ SRC_URI += "file://dhcpswitch.sh"
 
 SRC_URI  += " ${@bb.utils.contains('DISTRO_FEATURES', 'device_gateway_association', 'file://Device_Gateway_Association.patch;apply=no', '', d)}"
 
-SRC_URI_append += "${@bb.utils.contains('DISTRO_FEATURES','WanFailOverSupportEnable','file://udhcpc_backupwan.script','',d)}"
+SRC_URI:append += "${@bb.utils.contains('DISTRO_FEATURES','WanFailOverSupportEnable','file://udhcpc_backupwan.script','',d)}"
 IsRdkbWanFailOverSupported = "${@bb.utils.contains('DISTRO_FEATURES', 'WanFailOverSupportEnable', 'true', 'false', d)}"
 
 DEPENDS += " nanomsg"
 
-CFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_wan_manager', '-D_WAN_MANAGER_ENABLED_', '', d)}"
-CFLAGS_remove_dunfell = "-Wno-enum-conversion"
+CFLAGS:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_wan_manager', '-D_WAN_MANAGER_ENABLED_', '', d)}"
+CFLAGS:remove_dunfell = "-Wno-enum-conversion"
 
 LDFLAGS += " -lpthread -lhal_platform -lccsp_common"
 
@@ -29,7 +29,7 @@ fi
 }
 addtask utopia_patches after do_unpack before do_compile
 
-do_install_append () {
+do_install:append () {
     if [ "${IsRdkbWanFailOverSupported}" = "true" ]; then
         install -d ${D}${sysconfdir}/
         install -m 755 ${WORKDIR}/udhcpc_backupwan.script ${D}${sysconfdir}/

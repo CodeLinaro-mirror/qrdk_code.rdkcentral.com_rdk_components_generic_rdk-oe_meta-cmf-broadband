@@ -7,7 +7,7 @@ RPROVIDES_${PN} = "hal-wifi"
 
 inherit autotools coverity
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI = "${CMF_GITHUB_ROOT}/hal-wifi-cfg80211;protocol=${CMF_GIT_PROTOCOL};branch=${CMF_GITHUB_MASTER_BRANCH};name=wifihal"
 SRCREV_wifihal = "${AUTOREV}"
@@ -17,8 +17,8 @@ PV = "${RDK_RELEASE}+git${SRCPV}"
 S = "${WORKDIR}/git/source/wifi"
 
 DEPENDS += "halinterface libnl libev hostapd wpa-supplicant"
-CFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'extender', '-D_TURRIS_EXTENDER_ -D_RPI_EXTENDER_ -DWIFI_HAL_VERSION_3 ', '', d)}"
-CFLAGS_append = " -I=${includedir}/ccsp -I=${includedir}/libnl3"
-LDFLAGS_append = " -lnl-nf-3 -lnl-route-3 -lnl-3 -lnl-xfrm-3 -lnl-genl-3 -lev -lwpa_client"
+CFLAGS:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'extender', '-D_TURRIS_EXTENDER_ -D_RPI_EXTENDER_ -DWIFI_HAL_VERSION_3 ', '', d)}"
+CFLAGS:append = " -I=${includedir}/ccsp -I=${includedir}/libnl3"
+LDFLAGS:append = " -lnl-nf-3 -lnl-route-3 -lnl-3 -lnl-xfrm-3 -lnl-genl-3 -lev -lwpa_client"
 
 RDEPENDS_${PN} += "wpa-supplicant"

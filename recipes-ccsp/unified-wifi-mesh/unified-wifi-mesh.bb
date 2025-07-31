@@ -3,7 +3,7 @@ HOMEPAGE = "http://github.com/rdkcentral/unified-wifi-mesh"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=e0b1ae637439c7d6f4487fb90163c79a"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;branch=main;protocol=https;name=Unified-wifi-mesh"
 PV = "git${SRCPV}"
@@ -23,16 +23,16 @@ DEPENDS += "gcc-sanitizers"
 
 inherit autotools pkgconfig systemd
 
-CPPFLAGS_append = " \
+CPPFLAGS:append = " \
     -I${STAGING_INCDIR} \
     -I${STAGING_INCDIR}/rbus \
     -I${STAGING_INCDIR}/ccsp \
     -I${STAGING_INCDIR}/dbus-1.0 \
     -I${STAGING_LIBDIR}/dbus-1.0/include \
 "
-CPPFLAGS_append = " -g -DEASY_MESH_NODE -DEM_APP -std=c++17 "
+CPPFLAGS:append = " -g -DEASY_MESH_NODE -DEM_APP -std=c++17 "
 
-LDFLAGS_append = " \
+LDFLAGS:append = " \
     -lm \
     -lcjson \
     -lpthread \
@@ -44,7 +44,7 @@ LDFLAGS_append = " \
     -lmysqlcppconn \
 "
 
-do_install_append() {
+do_install:append() {
     install -d ${D}/usr/ccsp/EasyMesh
     install -d ${D}${systemd_unitdir}/system
     install -m 644 ${S}/install/bin/*  ${D}/usr/ccsp/EasyMesh

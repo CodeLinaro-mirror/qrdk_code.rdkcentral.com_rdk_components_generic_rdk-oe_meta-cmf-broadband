@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/ccsp-webui-bci:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/ccsp-webui-bci:"
 SRC_URI += "file://logo_rdk.png"
 PV_kirkstone = "${RDK_RELEASE}+git${SRCPV}"
 
@@ -12,7 +12,7 @@ do_webui_bci_patches() {
 }
 addtask webui_bci_patches after do_unpack before do_compile
 
-do_install_append () {
+do_install:append () {
 if [ "${@bb.utils.contains("DISTRO_FEATURES", "referencepltfm", "yes", "no", d)}" = "yes" ]; then
     install -d ${D}/usr/www/cmn/syndication/img
     install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img

@@ -1,4 +1,4 @@
-DEPENDS_remove = "mountutils"
+DEPENDS:remove = "mountutils"
 
-CFLAGS_append  += " ${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_cellular_manager_mm', ' -DFEATURE_RDKB_CELLULAR_MANAGER', '', d)}"
-CFLAGS_append = " -DRBUS_WAN_IP "
+CFLAGS:append  += " ${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_cellular_manager_mm', ' -DFEATURE_RDKB_CELLULAR_MANAGER', '', d)}"
+CFLAGS:append = " -DRBUS_WAN_IP "

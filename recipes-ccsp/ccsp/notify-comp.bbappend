@@ -1,2 +1,2 @@
-DEPENDS_append = " libbsd libunpriv"
-LDFLAGS_append = " -lbsd -lprivilege"
+DEPENDS:append = " libbsd libunpriv"
+LDFLAGS:append = " -lbsd -lprivilege"

@@ -1,3 +1,3 @@
 inherit coverity
 
-RDEPENDS_${PN}_remove = "asterisk"
+RDEPENDS_${PN}:remove = "asterisk"

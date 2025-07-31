@@ -20,14 +20,14 @@ RDEPENDS:${PN} = " unified-wifi-mesh"
 
 EXTRA_OEMAKE = "GO='${GO}'"
 
-CFLAGS_append = " \
+CFLAGS:append = " \
     -I${STAGING_INCDIR} \
     -I${STAGING_INCDIR}/ccsp \
     -I=${includedir}/rbus \ 
 "
-CFLAGS_append = " -g -DEASY_MESH_NODE -DEM_APP -fPIC "
+CFLAGS:append = " -g -DEASY_MESH_NODE -DEM_APP -fPIC "
 
-LDFLAGS_append = " -lemcli "
+LDFLAGS:append = " -lemcli "
 
 do_compile() {
 	export GOARCH="${TARGET_GOARCH}"

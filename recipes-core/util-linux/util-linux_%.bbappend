@@ -1,4 +1,4 @@
-do_install_append_broadband() {
+do_install:append_broadband() {
  rm -rf ${D}${base_sbindir}/hwclock
  rm -rf ${D}${base_bindir}/more
  rm -rf ${D}${base_bindir}/kill

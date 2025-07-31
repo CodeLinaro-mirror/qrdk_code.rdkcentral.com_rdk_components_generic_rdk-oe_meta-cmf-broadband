@@ -1,3 +1,3 @@
 inherit coverity
 
-DEPENDS_remove = "mountutils"
+DEPENDS:remove = "mountutils"

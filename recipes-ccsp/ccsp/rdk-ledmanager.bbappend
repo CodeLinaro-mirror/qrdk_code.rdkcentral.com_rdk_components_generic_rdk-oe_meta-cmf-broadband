@@ -1,12 +1,12 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-SRC_URI_remove = "${RDKB_CCSP_ROOT_GIT}/RdkLedManager/generic;protocol=${RDK_GIT_PROTOCOL};branch=${CCSP_GIT_BRANCH};name=LedManager"
+SRC_URI:remove = "${RDKB_CCSP_ROOT_GIT}/RdkLedManager/generic;protocol=${RDK_GIT_PROTOCOL};branch=${CCSP_GIT_BRANCH};name=LedManager"
 SRC_URI += "${CMF_GIT_ROOT}/rdkb/components/opensource/ccsp/RdkLedManager;protocol=${CMF_GIT_PROTOCOL};branch=${CMF_GIT_BRANCH};name=LedManager"
 
 inherit coverity
 
 DEPENDS += "json-c breakpad breakpad-wrapper"
-DEPENDS_remove = "hal-ledmanager"
+DEPENDS:remove = "hal-ledmanager"
 
 CFLAGS += " -Wno-implicit-function-declaration -DFEATURE_RDKB_LED_MANAGER"
 CFLAGS += "-I${STAGING_INCDIR}/breakpad "

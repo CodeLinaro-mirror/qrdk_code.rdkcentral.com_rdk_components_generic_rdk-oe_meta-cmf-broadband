@@ -1,5 +1,5 @@
 DEPENDS += "cjson"
-DEPENDS_remove = "mountutils"
+DEPENDS:remove = "mountutils"
 
 LDFLAGS += "-lcjson"
 
