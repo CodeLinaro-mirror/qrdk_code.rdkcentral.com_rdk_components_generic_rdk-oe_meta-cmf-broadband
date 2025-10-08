@@ -71,7 +71,7 @@ LDFLAGS:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_supp
 
 PACKAGES += "${@bb.utils.contains('DISTRO_FEATURES', 'gtestapp', '${PN}-gtest', '', d)}"
 
-SYSTEMD_SERVICE_${PN} = "RdkCellularManager.service"
+SYSTEMD_SERVICE:${PN} = "RdkCellularManager.service"
 
 do_compile:prepend () {
     if ${@bb.utils.contains('DISTRO_FEATURES', 'WanFailOverSupportEnable', 'true', 'false', d)}; then
@@ -100,7 +100,7 @@ do_install:append () {
     fi
 }
 
-FILES_${PN} = " \
+FILES:${PN} = " \
    ${bindir}/* \
    ${exec_prefix}/rdk/cellularmanager/* \
    ${systemd_unitdir}/system/RdkCellularManager.service \
@@ -109,14 +109,14 @@ FILES_${PN} = " \
    ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' ${exec_prefix}/rdk/cellularmanager/enable_drivers.sh', '', d)} \
 "
 
-FILES_${PN}-dbg = " \
+FILES:${PN}-dbg = " \
     ${exec_prefix}/rdk/rdkcellularmanager/.debug \
     /usr/src/debug \
     ${bindir}/.debug \
     ${libdir}/.debug \
 "
 
-FILES_${PN}-gtest = "\
+FILES:${PN}-gtest = "\
     ${@bb.utils.contains('DISTRO_FEATURES', 'gtestapp', '${bindir}/RdkCellularManager_gtest.bin', '', d)} \
 "
 

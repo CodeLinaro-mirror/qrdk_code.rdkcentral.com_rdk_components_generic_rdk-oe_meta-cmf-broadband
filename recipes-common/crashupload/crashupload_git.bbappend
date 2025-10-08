@@ -20,6 +20,7 @@ do_install:append () {
 }
 
 
-FILES_${PN} += " \
+FILES:${PN} += " \
                 ${base_libdir}/rdk/* \
+                ${systemd_unitdir}/system/ \
                "

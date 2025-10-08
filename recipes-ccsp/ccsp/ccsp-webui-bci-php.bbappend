@@ -31,5 +31,5 @@ if [ "${@bb.utils.contains("DISTRO_FEATURES", "referencepltfm", "yes", "no", d)}
 fi
 }
 
-FILES_${PN} += "/usr/www/cmn/syndication/img/* \
+FILES:${PN} += "/usr/www/cmn/syndication/img/* \
 "

@@ -3,7 +3,7 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://../../LICENSE;md5=257abd766c384d13f786497b61799b04"
 
 PROVIDES = "hal-wifi"
-RPROVIDES_${PN} = "hal-wifi"
+RPROVIDES:${PN} = "hal-wifi"
 
 inherit autotools coverity
 
@@ -21,4 +21,4 @@ CFLAGS:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'extender', '-D_TURRIS
 CFLAGS:append = " -I=${includedir}/ccsp -I=${includedir}/libnl3"
 LDFLAGS:append = " -lnl-nf-3 -lnl-route-3 -lnl-3 -lnl-xfrm-3 -lnl-genl-3 -lev -lwpa_client"
 
-RDEPENDS_${PN} += "wpa-supplicant"
+RDEPENDS:${PN} += "wpa-supplicant"

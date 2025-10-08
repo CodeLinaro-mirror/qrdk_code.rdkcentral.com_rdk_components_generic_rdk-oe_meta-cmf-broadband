@@ -6,3 +6,5 @@ inherit coverity
 DEPENDS += " nanomsg"
 
 CFLAGS:remove = " -DFEATURE_RDKB_WAN_MANAGER"
+
+TARGET_CFLAGS += "-Wno-error=dangling-pointer -Wno-error=address"

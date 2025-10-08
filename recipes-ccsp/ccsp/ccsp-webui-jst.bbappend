@@ -32,5 +32,5 @@ do_install:append () {
        install -m 755 ${WORKDIR}/webgui_config.sh ${D}/${sysconfdir}/webgui_config.sh
 }
 
-FILES_${PN} += "/usr/www2/cmn/syndication/img/* \
+FILES:${PN} += "/usr/www2/cmn/syndication/img/* \
 "

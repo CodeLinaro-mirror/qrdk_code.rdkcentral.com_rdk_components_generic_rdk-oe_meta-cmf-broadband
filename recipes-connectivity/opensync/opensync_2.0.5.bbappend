@@ -20,7 +20,7 @@ DEPENDS:remove = "hal-wifi"
 inherit systemd
 
 SYSTEMD_AUTO_ENABLE_${PN}_extender = "enable"
-SYSTEMD_SERVICE_${PN}_extender = "opensync.service"
+SYSTEMD_SERVICE:${PN}_extender = "opensync.service"
 
 do_install:append_extender() {
          install -d ${D}${systemd_unitdir}/system

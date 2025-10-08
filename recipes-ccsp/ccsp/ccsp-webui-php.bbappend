@@ -34,5 +34,5 @@ do_install:append () {
        install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/logo-generic.png
 }
 
-FILES_${PN} += "/usr/www/cmn/syndication/img/* \
+FILES:${PN} += "/usr/www/cmn/syndication/img/* \
 "

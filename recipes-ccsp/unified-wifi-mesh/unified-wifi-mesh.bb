@@ -51,6 +51,6 @@ do_install:append() {
     install -D -m 0644 ${WORKDIR}/em_*.service ${D}${systemd_unitdir}/system/
 }
 
-FILES_${PN} += "${libdir}/*.so*  ${bindir}/* /usr/ccsp/EasyMesh/* "
-FILES_${PN} += "${systemd_unitdir}/system/* "
+FILES:${PN} += "${libdir}/*.so*  ${bindir}/* /usr/ccsp/EasyMesh/* "
+FILES:${PN} += "${systemd_unitdir}/system/* "
 

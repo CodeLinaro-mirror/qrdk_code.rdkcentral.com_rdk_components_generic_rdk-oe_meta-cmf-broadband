@@ -3,6 +3,7 @@ SRC_URI:remove += "${RDKB_CCSP_ROOT_GIT}/rdk-wifi-libhostap;protocol=${RDK_GIT_P
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 S = "${WORKDIR}/git"
+DEPENDS += "libnl-native"
 
 SRC_URI += "git://w1.fi/hostap.git;protocol=https;branch=main;destsuffix=${S}/source/hostap-${HOSTAPD_PV};name=${HOSTAPD_PV}"
 SRCREV_2.10 = "9d07b9447e76059a2ddef2a879c57d0934634188"
@@ -17,3 +18,6 @@ file://2.10/009-RDKB-44454-Store-assoc-request-in-sta-struct.patch ',\
 do_configure:append() {
 ${@bb.utils.contains('DISTRO_FEATURES', 'HOSTAPD_2_11', 'echo "CONFIG_OWE=y" >> ${S}/source/hostap-${HOSTAPD_PV}/hostapd/.config', '',d)}
 }
+
+#INSANE_SKIP:${PN} += "patch-fuzz"
+#ERROR_QA:remove = "patch-fuzz"

@@ -56,4 +56,4 @@ do_install() {
         install -m 755 ${S}/src/import/src/cli/onewifi_em_cli  ${D}/usr/bin   
 }
 
-FILES_${PN} += " ${bindir}/*  "
+FILES:${PN} += " ${bindir}/*  "

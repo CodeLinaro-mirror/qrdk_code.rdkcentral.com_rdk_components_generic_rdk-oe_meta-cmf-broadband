@@ -1,2 +1,2 @@
-FILES_${PN} += "${base_libdir}/rdk/"
+FILES:${PN} += "${base_libdir}/rdk/"
 

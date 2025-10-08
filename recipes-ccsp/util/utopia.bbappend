@@ -1,6 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 PV_kirkstone = "${RDK_RELEASE}+git${SRCPV}"
+PV:scarthgap = "${RDK_RELEASE}+git${SRCPV}"
 SRC_URI += "file://udhcpc.script"
 SRC_URI += "file://udhcpc.vendor_specific"
 SRC_URI += "file://dhcpswitch.sh"
@@ -36,5 +37,13 @@ do_install:append () {
     fi
 }
 
-FILES_${PN} += "${@bb.utils.contains('DISTRO_FEATURES','WanFailOverSupportEnable','${sysconfdir}/udhcpc_backupwan.script','',d)}"
+do_compile:prepend() {
+    # Make sure staging libdir exists
+    install -d ${STAGING_LIBDIR}
+
+    # Create symlink so -lthreadutil resolves to libupnp
+    ln -sf libupnp.so ${STAGING_LIBDIR}/libthreadutil.so
+}
+
+FILES:${PN} += "${@bb.utils.contains('DISTRO_FEATURES','WanFailOverSupportEnable','${sysconfdir}/udhcpc_backupwan.script','',d)}"
 

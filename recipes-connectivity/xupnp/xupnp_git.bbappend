@@ -13,11 +13,11 @@ do_install:append() {
     install -m 0644 ${S}/conf/systemd/xcal-device.path ${D}${systemd_unitdir}/system/xcal-device.path
 }
 
-SYSTEMD_SERVICE_${PN} = "xupnp.service"
-SYSTEMD_SERVICE_${PN}:append = " xcal-device.service"
-SYSTEMD_SERVICE_${PN}:append = " xcal-device.path"
-SYSTEMD_SERVICE_${PN}:append = " xupnp-firewall.service"
-FILES_${PN} += "${systemd_unitdir}/system/xupnp.service"
-FILES_${PN}:append = " ${systemd_unitdir}/system/xcal-device.service"
-FILES_${PN}:append = " ${systemd_unitdir}/system/xcal-device.path"
-FILES_${PN}:append = " ${systemd_unitdir}/system/xupnp-firewall.service"
+SYSTEMD_SERVICE:${PN} = "xupnp.service"
+SYSTEMD_SERVICE:${PN}:append = " xcal-device.service"
+SYSTEMD_SERVICE:${PN}:append = " xcal-device.path"
+SYSTEMD_SERVICE:${PN}:append = " xupnp-firewall.service"
+FILES:${PN} += "${systemd_unitdir}/system/xupnp.service"
+FILES:${PN}:append = " ${systemd_unitdir}/system/xcal-device.service"
+FILES:${PN}:append = " ${systemd_unitdir}/system/xcal-device.path"
+FILES:${PN}:append = " ${systemd_unitdir}/system/xupnp-firewall.service"
