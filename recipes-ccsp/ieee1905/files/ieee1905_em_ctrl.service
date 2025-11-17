@@ -22,10 +22,17 @@ After=CcspEthAgent.service
 
 [Service]
 Type=forking
+Environment="EM_LOG_PATH=/tmp/"
+Environment="IEEE1905_LOG_LEVEL=off"
+EnvironmentFile=/etc/device.properties
 WorkingDirectory=/usr/ccsp/EasyMesh
+# Allow change service env parameters in run-time
+EnvironmentFile=-/nvram/easymesh.properties
 ExecStartPre=/bin/sh -c 'val=`syscfg get wan_physical_ifname`; echo "current wan name :$val"; while [ ! -e /sys/class/net/$val/address ] ;do sleep 1; done'
-ExecStartPre=/bin/sh -c 'if [ ! -e "/sys/class/net/eth0_virt_peer/address" ]; then `/usr/ccsp/EasyMesh/setup_veth_for_em.sh brlan0 eth0 true`; fi'
-ExecStart=/bin/sh -c '/usr/bin/ieee1905 -f off -i eth0_virt_peer --sap-data-path /tmp/al_em_ctrl_data_socket --sap-control-path /tmp/al_em_ctrl_control_socket >> /tmp/ieee1905_ctrl_log.txt &'
+ExecStartPre=/bin/sh -c 'if [ ! -e "/sys/class/net/eth0_virt_peer/address" ]; then /usr/ccsp/EasyMesh/setup_veth_for_em.sh brlan0 eth0 true; fi'
+ExecStart=/bin/sh -c '/usr/bin/ieee1905 -f ${IEEE1905_LOG_LEVEL} -i eth0_virt_peer --sap-data-path /tmp/al_em_ctrl_data_socket --sap-control-path /tmp/al_em_ctrl_control_socket >> ${EM_LOG_PATH}/ieee1905_ctrl_log.txt &'
+ExexStartPost=/bin/sh -c 'while [ ! -S /tmp/al_em_ctrl_control_socket ]; do echo "waiting for /tmp/al_em_ctrl_control_socket"; sleep 1; done'
+ExecStopPost=/bin/sh -c 'ip link del eth0_virt_end  2>/dev/null; echo "Cleaned eth0_virt_end"'
 Restart=always
 
 

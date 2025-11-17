@@ -22,10 +22,16 @@ After=onewifi.service
 
 [Service]
 Type=forking
+Environment="EM_LOG_PATH=/tmp/"
+Environment="IEEE1905_LOG_LEVEL=off"
+EnvironmentFile=/etc/device.properties
 WorkingDirectory=/usr/ccsp/EasyMesh
+# Allow change service env parameters in run-time
+EnvironmentFile=-/nvram/easymesh.properties
 ExecStartPre=/bin/sh -c '/usr/ccsp/EasyMesh/setup_ext_pre.sh'
-ExecStartPre=/bin/sh -c 'if [ ! -e "/sys/class/net/eth1_virt_peer/address" ]; then `/usr/ccsp/EasyMesh/setup_veth_for_em.sh brlan0 eth1 false`;fi'
-ExecStart=/bin/sh -c '/usr/bin/ieee1905 -f off -i eth1_virt_peer >> /tmp/ieee1905_agent_log.txt &'
+ExecStartPre=/bin/sh -c 'if [ ! -e "/sys/class/net/eth1_virt_peer/address" ]; then /usr/ccsp/EasyMesh/setup_veth_for_em.sh brlan0 eth1 false; fi'
+ExecStart=/bin/sh -c '/usr/bin/ieee1905 -f ${IEEE1905_LOG_LEVEL} -i eth1_virt_peer >> ${EM_LOG_PATH}/ieee1905_agent_log.txt &'
+ExecStopPost=/bin/sh -c 'ip link del eth1_virt_end  2>/dev/null; echo "Cleaned eth1_virt_end"'
 Restart=always
 
 
