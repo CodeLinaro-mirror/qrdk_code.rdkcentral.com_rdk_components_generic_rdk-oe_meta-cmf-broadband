@@ -17,8 +17,4 @@ do_install:append () {
 }
 
 TARGET_LDFLAGS:append += "-L${STAGING_LIBDIR}"
-
-FILES:${PN}-dev += " \
-    ${libdir}/libccsp_common.so \
-"
-
+INSANE_SKIP:${PN} += "dev-so"

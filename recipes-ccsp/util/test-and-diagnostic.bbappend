@@ -1,4 +1,4 @@
 LDFLAGS += " -lpthread"
 
 TARGET_CFLAGS += "-Wno-error=address"
-FILES:${PN}-dev += "${libdir}/*.so"
+INSANE_SKIP:${PN} += "dev-so"
