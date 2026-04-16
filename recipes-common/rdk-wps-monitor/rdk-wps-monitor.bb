@@ -8,12 +8,12 @@ PV = "1.0+git${SRCPV}"
 PR = "r4"
 
 # Fetch the source code
-SRC_URI = "${CMF_GITHUB_ROOT}/broadband-utils;protocol=https;nobranch=1 \
+SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${CMF_GITHUB_ROOT}/broadband-utils;protocol=https;branch=develop', '${CMF_GITHUB_ROOT}/broadband-utils;protocol=https;nobranch=1', d)} \
            file://netlink-button-monitor.service \
           "
 
 PV = "1.0.0"
-SRCREV = "10bae35768d234e969723aa51e9016f116f0870e"
+SRCREV = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', '10bae35768d234e969723aa51e9016f116f0870e', d)}"
 
 S = "${WORKDIR}/git"
 

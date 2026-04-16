@@ -1,3 +1,4 @@
+BBMASK .= "|meta-rdk-broadband/recipes-ccsp/ccsp/rdk-easymesh-controller.bb"
 BBMASK .= "|meta-rdk-broadband/recipes-extended/hwselftest/"
 BBMASK .= "|meta-rdk-broadband/recipes-rdkb/sysint-broadband/sysint-broadband-min.bb"
 

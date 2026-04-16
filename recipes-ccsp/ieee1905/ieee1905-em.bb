@@ -8,9 +8,9 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=b538373fe584898492d2ad3a91014d58"
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 # Source repository
-SRC_URI = "git://github.com/rdkcentral/ieee1905-rs.git;nobranch=1;protocol=https"
-SRCREV = "e5b046be767b492dcfe4d1864954864aee1864d8"
-PV = "v0.5.0"
+SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/ieee1905-rs.git;branch=develop;protocol=https', 'git://github.com/rdkcentral/ieee1905-rs.git;nobranch=1;protocol=https', d)}"
+SRCREV = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', '9eb6127c05250f0174a113688d7e577e1af35732', d)}"
+PV = "v0.6.0"
 
 SRC_URI += "\
      ${@bb.utils.contains('DISTRO_FEATURES','em_extender',' file://ieee1905_em_ext_agent.service ',' file://ieee1905_em_agent.service ',d)} \
@@ -30,7 +30,7 @@ LDFLAGS:append = " \
     -lrbus \
 "
 
-RUSTFLAGS += "-L ${STAGING_LIBDIR} -l rbus"
+RUSTFLAGS += "-L ${STAGING_LIBDIR} -l rbus --cfg tokio_unstable"
 BREAKPAD_BIN:append = " ieee1905-em"
 
 # Source directory

@@ -4,13 +4,22 @@
 if [ -f "/nvram/mysql_db_data_exists" ]; then
 Existing_al_mac=`mysql -u bpi --password="root" -D OneWifiMesh -e "select ColocatedAgentID from NetworkList " |  sed 's/|/ /' | tail -n1`
 Present_al_mac=`ifconfig eth1_virt_peer | grep HWaddr | cut -d ' ' -f6 | tr '[:upper:]' '[:lower:]'`
-   if [ "$Present_al_mac" != "$Existing_al_mac" ]; then
-      echo "AL_MAC address is changed now.. so wifi reset is required.."
+Last_reboot_reason=`syscfg get X_RDKCENTRAL-COM_LastRebootReason`
+Easymesh_db_clear=`syscfg get easymesh_db_clear`
+
+if [ "$Present_al_mac" != "$Existing_al_mac" ] || ( [ "$Last_reboot_reason" = "factory-reset" ] && [ "$Easymesh_db_clear" != "true" ] ); then
+      echo "AL_MAC address is changed or factory reset done now.. so wifi reset is required.."
       rm /nvram/mysql_db_*
       rm /nvram/initial_restart_ctrl
       #password is not sensitive,used to drop existing DB from mariadb
       mysql -u bpi --password="root" -e "drop database OneWifiMesh;"
       mysql -u bpi --password="root" -e "drop user bpi@localhost;"
+
+      # Mark reset done only for factory reset case
+      if [ "$Last_reboot_reason" = "factory-reset" ]; then
+         syscfg set easymesh_db_clear true
+         syscfg commit
+      fi
    fi
 fi
 

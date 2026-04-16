@@ -5,13 +5,10 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=e0b1ae637439c7d6f4487fb90163c79a"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh"
-PV_Unified-wifi-mesh = "v0.2.1"
-SRCREV_Unified-wifi-mesh = "2fdd34f70373543bd2372dde68582beaf596cbbb"
+SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/unified-wifi-mesh.git;branch=develop;protocol=https;name=Unified-wifi-mesh', 'git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh', d)}"
+PV_Unified-wifi-mesh = "v0.3.1"
+SRCREV_Unified-wifi-mesh = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', 'c0e72a31c96cc63cc366fcf2b628132185985d2a', d)}"
 SRCREV_FORMAT = "Unified-wifi-mesh"
-
-SRC_URI += "git://github.com/rdkcentral/OneWifi.git;branch=develop;protocol=https;name=OneWifi;destsuffix=git/OneWifi"
-SRCREV_OneWifi = "4bc321930ccdacad095b161cf9fb6a2a9e14a527"
 
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://ext_em_agent.service', ' file://em_agent.service', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://em_ctrl.service', d)}"
@@ -51,6 +48,7 @@ LDFLAGS:append = " \
     -lcrypto \
     -lrbus \
     -lbreakpadwrapper \
+    -lwifi_bus \
 "
 EXTRA_OECONF:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', 'EM_EXTENDER=true', 'EM_EXTENDER=false', d)}"
 #To enable unit test support
@@ -75,12 +73,11 @@ do_install:append() {
     install -D -m 0644 ${WORKDIR}/em_*.service ${D}${systemd_unitdir}/system/
 
     #Needed for WFA Data Elements.
-    install -d ${D}/nvram
-    install -m 755 ${WORKDIR}/git/src/ctrl/tr_181/wfa_data_model/Data_Elements_JSON_Schema_v3.0.json ${D}/nvram
+    install -m 755 ${WORKDIR}/git/src/ctrl/tr_181/wfa_data_model/Data_Elements_JSON_Schema_v3.0.json ${D}/usr/ccsp/EasyMesh
 }
 
 SYSTEMD_SERVICE:${PN} = " em_agent.service"
 SYSTEMD_SERVICE:${PN} += " ${@bb.utils.contains('DISTRO_FEATURES','em_extender','',' em_ctrl.service em_cli.service ',d)}"
 
-FILES:${PN} += "${libdir}/*.so*  ${bindir}/* /usr/ccsp/EasyMesh/* /nvram/* "
+FILES:${PN} += "${libdir}/*.so*  ${bindir}/* /usr/ccsp/EasyMesh/* "
 FILES:${PN} += "${systemd_unitdir}/system/* "
