@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=e0b1ae637439c7d6f4487fb90163c79a"
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh_header"
 PV = "v0.2.1"
-SRCREV_Unified-wifi-mesh_header = "f9350aa33dbecbf60b10ec91e545b38364d6c8c0"
+SRCREV_Unified-wifi-mesh_header = "8780ce2e9299b8fe17804ea996c86acf15be0526"
 SRCREV_FORMAT = "Unified-wifi-mesh_header"
 
 S = "${WORKDIR}/git"
