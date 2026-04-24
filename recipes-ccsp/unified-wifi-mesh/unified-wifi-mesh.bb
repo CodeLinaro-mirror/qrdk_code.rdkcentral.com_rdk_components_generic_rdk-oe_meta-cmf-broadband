@@ -7,11 +7,8 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh"
 PV_Unified-wifi-mesh = "v0.2.1"
-SRCREV_Unified-wifi-mesh = "8780ce2e9299b8fe17804ea996c86acf15be0526"
+SRCREV_Unified-wifi-mesh = "c32c7749aa2642005a3425ceb99c4cac12eebc1b"
 SRCREV_FORMAT = "Unified-wifi-mesh"
-
-SRC_URI += "git://github.com/rdkcentral/OneWifi.git;branch=develop;protocol=https;name=OneWifi;destsuffix=git/OneWifi"
-SRCREV_OneWifi = "d75f84251c2f251b5d384ca57a29dcfdbdc2beaf"
 
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://ext_em_agent.service', ' file://em_agent.service', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://em_ctrl.service', d)}"
@@ -51,6 +48,7 @@ LDFLAGS_append = " \
     -lcrypto \
     -lrbus \
     -lbreakpadwrapper \
+    -lwifi_bus \
 "
 EXTRA_OECONF_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', 'EM_EXTENDER=true', 'EM_EXTENDER=false', d)}"
 #To enable unit test support
