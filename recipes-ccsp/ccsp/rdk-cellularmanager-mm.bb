@@ -20,7 +20,6 @@ SRCREV_FORMAT = "CellularManager-mm"
 PV = "1.0.1"
 PR = "r0"
 
-S = "${WORKDIR}/git"
 
 inherit coverity
 
@@ -54,7 +53,7 @@ CFLAGS:append = " ${@bb.utils.contains_any('DISTRO_FEATURES', 'safec',  ' `pkg-c
 CFLAGS:remove:wrynose = " ${@bb.utils.contains_any('DISTRO_FEATURES', 'safec',  ' `pkg-config --cflags libsafec`', '-fPIC', d)}"
 LDFLAGS:append_dunfell = "${@bb.utils.contains_any('DISTRO_FEATURES', 'safec', ' -lsafec-3.5.1 ', '', d)}"
 LDFLAGS:append_kirkstone = " ${@bb.utils.contains_any('DISTRO_FEATURES', 'safec', ' -lsafec ', '', d)}"
-LDFLAGS:append_wrynose = " ${@bb.utils.contains_any('DISTRO_FEATURES', 'safec', ' -lsafec ', '', d)}"
+LDFLAGS:append:wrynose = " ${@bb.utils.contains_any('DISTRO_FEATURES', 'safec', ' -lsafec ', '', d)} "
 
 CFLAGS += "-I${STAGING_INCDIR}/libmm-glib/"
 CFLAGS += "-I${STAGING_INCDIR}/ModemManager/"

@@ -15,7 +15,6 @@ SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${CMF_GITHUB
 PV = "1.0.0"
 SRCREV = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', '10bae35768d234e969723aa51e9016f116f0870e', d)}"
 
-S = "${WORKDIR}/git"
 
 DEPENDS = "rbus"
 
@@ -35,6 +34,9 @@ inherit autotools pkgconfig systemd
 EXTRA_OEMAKE = "'CC=${CC}' 'CFLAGS=${CFLAGS} -g -Wall' 'LDFLAGS=${LDFLAGS}'"
 
 do_configure[depends] += "rbus:do_populate_sysroot"
+do_configure:wrynose() {
+    install -d ${B}
+}
 PARALLEL_MAKE = ""
 
 do_compile() {
@@ -91,7 +93,7 @@ do_install() {
     fi
 
     # Install systemd service
-    install -m 0644 ${WORKDIR}/netlink-button-monitor.service ${D}${systemd_unitdir}/system/
+    install -m 0644 ${UNPACKDIR}/netlink-button-monitor.service ${D}${systemd_unitdir}/system/
 
     # Install any scripts if they exist
     if [ -d "${S}/rdk-wps-monitor/scripts" ]; then

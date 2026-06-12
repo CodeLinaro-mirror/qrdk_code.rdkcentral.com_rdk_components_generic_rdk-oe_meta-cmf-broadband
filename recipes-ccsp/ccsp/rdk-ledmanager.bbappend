@@ -17,7 +17,7 @@ do_ledmanager_patches() {
     cd ${S}
     if [ ! -e patch_applied ]; then
         bbnote "Patching 0001-Remove-hal-dependencies.patch"
-        patch -p1 < ${WORKDIR}/0001-Remove-hal-dependencies.patch
+        patch -p1 < ${UNPACKDIR}/0001-Remove-hal-dependencies.patch
         touch patch_applied
     fi
 }

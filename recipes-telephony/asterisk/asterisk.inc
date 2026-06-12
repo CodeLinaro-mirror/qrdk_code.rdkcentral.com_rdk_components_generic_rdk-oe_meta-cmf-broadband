@@ -1,7 +1,10 @@
 DESCRIPTION = "Asterisk is an Open Source PBX and telephony toolkit."
-LICENSE = "GPLv2"
+# "GPLv2" is the pre-SPDX spelling and is rejected outright now:
+#   QA Issue: Recipe LICENSE includes obsolete licenses GPLv2 [obsolete-license]
+# GPL-2.0-only is the SPDX identifier for the same license (asterisk is GPLv2,
+# not "or later"), so this is a rename, not a licensing change.
+LICENSE = "GPL-2.0-only"
 
-S = "${WORKDIR}/git"
 
 DEPENDS += "util-linux libxml2-native ncurses-native"
 
@@ -11,6 +14,9 @@ EXTRA_AUTORECONF += "\
     -I ${S}/third-party/jansson \
     -I ${S}/third-party/pjproject \
 "
+
+#   autoreconf: error: .../autoconf failed with exit status: 1
+EXTRA_AUTORECONF:append:wrynose = " -I ${S}/autoconf -I ${S}/third-party"
 
 PACKAGECONFIG ?= "\
     ${@bb.utils.contains('DISTRO_FEATURES', 'largefile', 'largefile', '', d)} \
@@ -136,9 +142,9 @@ do_configure_menuselect() {
 addtask do_configure_menuselect after do_configure before do_compile
 
 do_install:append() {
-	install -D -p -m 0644 ${WORKDIR}/asterisk.tmpfiles ${D}${libdir}/tmpfiles.d/asterisk.conf
-	install -D -p -m 0644 ${WORKDIR}/asterisk.socket   ${D}${systemd_system_unitdir}/asterisk.socket
-        install -D -p -m 0644 ${WORKDIR}/asterisk.service  ${D}${systemd_system_unitdir}/asterisk.service
+	install -D -p -m 0644 ${UNPACKDIR}/asterisk.tmpfiles ${D}${libdir}/tmpfiles.d/asterisk.conf
+	install -D -p -m 0644 ${UNPACKDIR}/asterisk.socket   ${D}${systemd_system_unitdir}/asterisk.socket
+        install -D -p -m 0644 ${UNPACKDIR}/asterisk.service  ${D}${systemd_system_unitdir}/asterisk.service
 
 	rm -rf ${D}/var/run
 	rm -rf ${D}/var/log

@@ -1,3 +1,5 @@
+Upstream-Status: Pending
+
 diff --git a/src/rdm_downloadutils.c b/src/rdm_downloadutils.c
 index e6bc653..49f4686 100644
 --- a/src/rdm_downloadutils.c

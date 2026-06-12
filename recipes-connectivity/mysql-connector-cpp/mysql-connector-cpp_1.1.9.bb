@@ -33,7 +33,7 @@ SRC_URI = "https://downloads.mysql.com/archives/get/p/20/file/mysql-connector-c+
 SRC_URI[sha256sum] = "3e31847a69a4e5c113b7c483731317ec4533858e3195d3a85026a0e2f509d2e4"
 SRC_URI:append = " file://build_issues_fix.patch "
 
-S = "${WORKDIR}/mysql-connector-c++-${PV}"
+S = "${UNPACKDIR}/mysql-connector-c++-${PV}"
 
 EXTRA_OECMAKE += " \
     -DCMAKE_INSTALL_PREFIX=${prefix} \

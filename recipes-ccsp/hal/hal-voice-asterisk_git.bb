@@ -15,13 +15,12 @@ SRC_URI = "git://github.com/rdkcentral/hal-voice-asterisk.git;branch=main;protoc
 DEPENDS += "json-c json-hal-lib"
 RDEPENDS:${PN} += "asterisk"
 
-S = "${WORKDIR}/git"
 
 inherit autotools systemd
 
 do_install:append () {
     install -d ${D}${systemd_unitdir}/system
-    install -D -m 0644 ${WORKDIR}/hal-voice-asterisk.service ${D}${systemd_unitdir}/system/hal-voice-asterisk.service
+    install -D -m 0644 ${UNPACKDIR}/hal-voice-asterisk.service ${D}${systemd_unitdir}/system/hal-voice-asterisk.service
 }
 
 SYSTEMD_SERVICE:${PN} += "hal-voice-asterisk.service"

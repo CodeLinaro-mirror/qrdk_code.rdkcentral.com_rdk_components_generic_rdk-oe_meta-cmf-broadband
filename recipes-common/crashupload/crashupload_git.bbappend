@@ -6,7 +6,7 @@ SRC_URI += "file://uploadDumpsToS3.sh"
 do_crashupload_patches () {
     cd ${S}
     if [ ! -e patch_applied ]; then
-       patch -p1 < ${WORKDIR}/crash_upload.patch
+       patch -p1 < ${UNPACKDIR}/crash_upload.patch
        touch patch_applied
     fi
 }

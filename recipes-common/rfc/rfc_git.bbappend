@@ -1,6 +1,6 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-SRC_URI:append = " git://github.com/rdkcentral/broadband-utils.git;protocol=https;branch=develop;name=utils;destsuffix=git/broadband"
+SRC_URI:append = " git://github.com/rdkcentral/broadband-utils.git;protocol=https;branch=develop;name=utils;destsuffix=${BP}/broadband"
 SRCREV_utils = "ccbe5d245ed966f1fc771064b648f6630acf98a6"
 SRCREV_FORMAT = "rfc_utils"
 
