@@ -1,1 +1,1 @@
-CFLAGS_append = " -Wno-format-overflow -Wno-restrict "
+CFLAGS:append = " -Wno-format-overflow -Wno-restrict "

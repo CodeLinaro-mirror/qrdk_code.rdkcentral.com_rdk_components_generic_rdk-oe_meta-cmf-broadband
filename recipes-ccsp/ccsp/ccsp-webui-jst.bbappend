@@ -1,6 +1,6 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-SRC_URI_remove = "git://${RDK_GIT}/rdk/rdkb/devices/rdkbemu/rdkbemu_xb3;protocol=${RDK_GIT_PROTOCOL};branch=${CCSP_GIT_BRANCH};destsuffix=xb3;name=xb3"
+SRC_URI:remove = "git://${RDK_GIT}/rdk/rdkb/devices/rdkbemu/rdkbemu_xb3;protocol=${RDK_GIT_PROTOCOL};branch=${CCSP_GIT_BRANCH};destsuffix=xb3;name=xb3"
 SRC_URI += "${CMF_GIT_ROOT}/rdkb/devices/rdkbemu/rdkbemu_xb3;protocol=${CMF_GIT_PROTOCOL};branch=${CMF_GIT_BRANCH};destsuffix=xb3;name=xb3"
 
 SRC_URI += "file://logo_rdk.png"
@@ -8,7 +8,7 @@ SRC_URI += "file://logo_rdk.png"
 #REFPLTB-1802
 SRC_URI += "file://webgui_config.sh"
 
-do_install_append () {
+do_install:append () {
        #For RDKM Logo
        install -d ${D}/usr/www2/cmn/syndication/img
        install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img
@@ -28,5 +28,5 @@ do_install_append () {
        install -m 755 ${WORKDIR}/webgui_config.sh ${D}/${sysconfdir}/webgui_config.sh
 }
 
-FILES_${PN} += "/usr/www2/cmn/syndication/img/* \
+FILES:${PN} += "/usr/www2/cmn/syndication/img/* \
 "

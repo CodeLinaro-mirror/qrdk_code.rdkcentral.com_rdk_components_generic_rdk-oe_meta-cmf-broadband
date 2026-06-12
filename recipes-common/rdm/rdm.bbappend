@@ -1,3 +1,3 @@
-DEPENDS_remove = "mountutils"
+DEPENDS:remove = "mountutils"
 
-EXTRA_OECONF_remove = "--enable-mountutils"
+EXTRA_OECONF:remove = "--enable-mountutils"

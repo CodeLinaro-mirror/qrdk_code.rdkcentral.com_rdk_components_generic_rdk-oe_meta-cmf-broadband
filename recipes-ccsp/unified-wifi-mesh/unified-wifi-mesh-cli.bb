@@ -20,14 +20,14 @@ RDEPENDS:${PN} = " unified-wifi-mesh"
 
 EXTRA_OEMAKE = "GO='${GO}'"
 
-CFLAGS_append = " \
+CFLAGS:append = " \
     -I${STAGING_INCDIR} \
     -I${STAGING_INCDIR}/ccsp \
     -I=${includedir}/rbus \ 
 "
-CFLAGS_append = " -g -DEASY_MESH_NODE -DEM_APP -fPIC "
+CFLAGS:append = " -g -DEASY_MESH_NODE -DEM_APP -fPIC "
 
-LDFLAGS_append = " -lemcli "
+LDFLAGS:append = " -lemcli "
 
 do_fetch_mod () {
 	export GOPATH="${S}"
@@ -66,4 +66,4 @@ do_install() {
         cp -rf ${S}/src/import/src/rdkb-cli/static/*  ${D}/usr/ccsp/EasyMesh/static
 }
 
-FILES_${PN} += " ${bindir}/* /usr/ccsp/EasyMesh/static/* "
+FILES:${PN} += " ${bindir}/* /usr/ccsp/EasyMesh/static/* "

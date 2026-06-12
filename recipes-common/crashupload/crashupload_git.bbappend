@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 SRC_URI += "file://crash_upload.patch;apply=no"
 SRC_URI += "file://uploadDumpsUtilsBroadband.sh"
 SRC_URI += "file://uploadDumpsToS3.sh"
@@ -12,7 +12,7 @@ do_crashupload_patches () {
 }
 addtask crashupload_patches after do_unpack before do_configure
 
-do_install_append () {
+do_install:append () {
         install -m 0755 ${S}/../uploadDumpsUtilsBroadband.sh ${D}${base_libdir}/rdk/uploadDumpsUtils.sh
         install -m 0755 ${S}/../uploadDumpsToS3.sh ${D}${base_libdir}/rdk/uploadDumpsToS3.sh
 
@@ -22,6 +22,6 @@ do_install_append () {
 }
 
 
-FILES_${PN} += " \
+FILES:${PN} += " \
                 ${base_libdir}/rdk/* \
                "

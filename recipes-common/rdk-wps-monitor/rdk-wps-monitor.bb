@@ -19,11 +19,11 @@ S = "${WORKDIR}/git"
 
 DEPENDS = "rbus"
 
-CFLAGS_append += " -DRBUS_BUILD_INTEGRATED"
-CFLAGS_append += " -DRBUS_BUILD_FLAG_ENABLE"
+CFLAGS:append += " -DRBUS_BUILD_INTEGRATED"
+CFLAGS:append += " -DRBUS_BUILD_FLAG_ENABLE"
 
-LDFLAGS_append += " -lrbus -lrtMessage -lrbuscore"
-CFLAGS_append += " \
+LDFLAGS:append += " -lrbus -lrtMessage -lrbuscore"
+CFLAGS:append += " \
     -I${RECIPE_SYSROOT}/usr/include \
     -I${RECIPE_SYSROOT}/usr/include/rtmessage \
     -I${RECIPE_SYSROOT}/usr/include/rbus \

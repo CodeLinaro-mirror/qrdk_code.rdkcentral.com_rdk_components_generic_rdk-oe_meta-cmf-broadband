@@ -66,7 +66,7 @@ dump_dhcp_offer() {
 }
 
 #compare and delete old domain and ipv4 config from resolv.conf
-compare_and_remove_old_config() {
+compare_and:remove_old_config() {
 
                 cp $RESOLV_CONF $RESOLV_CONF_TMP
                 echo "comapring old and new dns IPV4 configuration " >> $CONSOLEFILE
@@ -105,7 +105,7 @@ compare_and_remove_old_config() {
 save_dhcp_offer() {
 	dump_dhcp_offer
         if [ "$dns" != "" ]; then
-        	compare_and_remove_old_config
+        	compare_and:remove_old_config
         fi
 	
         sysevent set ipv4_${interface}_ipaddr "$ip"

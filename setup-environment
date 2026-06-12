@@ -20,7 +20,7 @@
 
 # Enabling distro features as part of the build
 if [ "X$DISTRO_NAME" != "X" ]; then
-    echo "DISTRO_FEATURES_append =\" $DISTRO_NAME\"" >> conf/local.conf
+    echo "DISTRO_FEATURES:append =\" $DISTRO_NAME\"" >> conf/local.conf
 fi
 
 # Flag to include the "download_t2_profile.sh" script from the telemetry component

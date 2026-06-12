@@ -2,7 +2,7 @@ inherit coverity
 
 DEPENDS += " breakpad breakpad-wrapper utopia"
 
-CFLAGS_append = " \
+CFLAGS:append = " \
     -I${S}/source/GponManager \
     -I${S}/source/TR-181/middle_layer_src \
     -I${S}/source/TR-181/include \

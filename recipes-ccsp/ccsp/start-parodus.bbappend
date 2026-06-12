@@ -1,4 +1,4 @@
 inherit coverity
 
-DEPENDS_remove = "cpgc"
-DEPENDS_remove = "lxy"
+DEPENDS:remove = "cpgc"
+DEPENDS:remove = "lxy"

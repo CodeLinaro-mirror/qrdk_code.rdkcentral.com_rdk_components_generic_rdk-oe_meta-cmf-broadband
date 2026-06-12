@@ -1,8 +1,8 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 SRC_URI += "file://logo_rdk.png"
 PV_kirkstone = "${RDK_RELEASE}+git${SRCPV}"
 
-do_install_prepend() {
+do_install:prepend() {
     install -d ${S}/../Styles/xb3/code/CSRF-Protector-PHP
     install -d ${S}/../Styles/xb3/code/CSRF-Protector-PHP/js
     install -d ${S}/../Styles/xb3/code/CSRF-Protector-PHP/libs
@@ -16,7 +16,7 @@ do_install_prepend() {
     touch ${S}/../Styles/xb3/code/cmn/syndication/img/TODO
 }
 
-do_install_append () {
+do_install:append () {
        #For RDKM Logo
        install -d ${D}/usr/www/cmn/syndication/img
        install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img
@@ -34,5 +34,5 @@ do_install_append () {
        install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/logo-generic.png
 }
 
-FILES_${PN} += "/usr/www/cmn/syndication/img/* \
+FILES:${PN} += "/usr/www/cmn/syndication/img/* \
 "

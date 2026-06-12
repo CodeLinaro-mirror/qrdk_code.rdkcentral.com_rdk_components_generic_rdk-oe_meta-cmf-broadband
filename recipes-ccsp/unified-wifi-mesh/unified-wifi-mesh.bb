@@ -3,7 +3,7 @@ HOMEPAGE = "http://github.com/rdkcentral/unified-wifi-mesh"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=e0b1ae637439c7d6f4487fb90163c79a"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh"
 PV_Unified-wifi-mesh = "v0.2.1"
@@ -30,18 +30,18 @@ inherit autotools pkgconfig systemd breakpad-wrapper
 CFLAGS += "-I${STAGING_INCDIR}/breakpad "
 CXXFLAGS += "-I${STAGING_INCDIR}/breakpad "
 
-CPPFLAGS_append = " \
+CPPFLAGS:append = " \
     -I${STAGING_INCDIR} \
     -I${STAGING_INCDIR}/rbus \
     -I${STAGING_INCDIR}/ccsp \
     -I${STAGING_INCDIR}/dbus-1.0 \
     -I${STAGING_LIBDIR}/dbus-1.0/include \
 "
-CPPFLAGS_append = " -g -DEASY_MESH_NODE -DEM_APP -std=c++17 -D_PLATFORM_BANANAPI_R4_ "
-CPPFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'with_alsap',' -DAL_SAP', '', d)}"
-CFLAGS_append = " -D_PLATFORM_BANANAPI_R4_ "
+CPPFLAGS:append = " -g -DEASY_MESH_NODE -DEM_APP -std=c++17 -D_PLATFORM_BANANAPI_R4_ "
+CPPFLAGS:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'with_alsap',' -DAL_SAP', '', d)}"
+CFLAGS:append = " -D_PLATFORM_BANANAPI_R4_ "
 
-LDFLAGS_append = " \
+LDFLAGS:append = " \
     -lm \
     -lcjson \
     -lpthread \
@@ -52,15 +52,15 @@ LDFLAGS_append = " \
     -lrbus \
     -lbreakpadwrapper \
 "
-EXTRA_OECONF_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', 'EM_EXTENDER=true', 'EM_EXTENDER=false', d)}"
+EXTRA_OECONF:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', 'EM_EXTENDER=true', 'EM_EXTENDER=false', d)}"
 #To enable unit test support
 EXTRA_OECONF:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'Em_Unittest', 'EM_UNITTEST=true', 'EM_UNITTEST=false', d)}"
 
 #minidump support
-BREAKPAD_BIN_append = " onewifi_em_ctrl "
-BREAKPAD_BIN_append = " onewifi_em_agent"
+BREAKPAD_BIN:append = " onewifi_em_ctrl "
+BREAKPAD_BIN:append = " onewifi_em_agent"
 
-do_install_append() {
+do_install:append() {
     install -d ${D}/usr/ccsp/EasyMesh
     install -d ${D}${systemd_unitdir}/system
     install -m 644 ${S}/install/bin/*  ${D}/usr/ccsp/EasyMesh
@@ -79,8 +79,8 @@ do_install_append() {
     install -m 755 ${WORKDIR}/git/src/ctrl/tr_181/wfa_data_model/Data_Elements_JSON_Schema_v3.0.json ${D}/nvram
 }
 
-SYSTEMD_SERVICE_${PN} = " em_agent.service"
-SYSTEMD_SERVICE_${PN} += " ${@bb.utils.contains('DISTRO_FEATURES','em_extender','',' em_ctrl.service em_cli.service ',d)}"
+SYSTEMD_SERVICE:${PN} = " em_agent.service"
+SYSTEMD_SERVICE:${PN} += " ${@bb.utils.contains('DISTRO_FEATURES','em_extender','',' em_ctrl.service em_cli.service ',d)}"
 
-FILES_${PN} += "${libdir}/*.so*  ${bindir}/* /usr/ccsp/EasyMesh/* /nvram/* "
-FILES_${PN} += "${systemd_unitdir}/system/* "
+FILES:${PN} += "${libdir}/*.so*  ${bindir}/* /usr/ccsp/EasyMesh/* /nvram/* "
+FILES:${PN} += "${systemd_unitdir}/system/* "

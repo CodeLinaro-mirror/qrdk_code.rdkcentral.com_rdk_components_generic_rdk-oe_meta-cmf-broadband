@@ -1,1 +1,1 @@
-PACKAGECONFIG_remove_kirkstone  = "librsvg"
+PACKAGECONFIG:remove_kirkstone  = "librsvg"

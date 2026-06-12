@@ -1,2 +1,2 @@
-RDEPENDS_packagegroup-rdk-ccsp-broadband_append = " crashupload"
-RDEPENDS_packagegroup-rdk-ccsp-broadband_append = " rdk-wps-monitor"
+RDEPENDS:packagegroup-rdk-ccsp-broadband:append = " crashupload"
+RDEPENDS:packagegroup-rdk-ccsp-broadband:append = " rdk-wps-monitor"

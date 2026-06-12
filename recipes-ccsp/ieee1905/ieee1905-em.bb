@@ -5,7 +5,7 @@ DESCRIPTION = "IEEE 1905 Rust Program"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=b538373fe584898492d2ad3a91014d58"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 # Source repository
 SRC_URI = "git://github.com/rdkcentral/ieee1905-rs.git;nobranch=1;protocol=https"
@@ -25,13 +25,13 @@ CXXFLAGS += "-I${STAGING_INCDIR}/breakpad "
 
 export LIBCLANG_PATH = "${STAGING_LIBDIR_NATIVE}"
 
-LDFLAGS_append = " \
+LDFLAGS:append = " \
     -lbreakpadwrapper \
     -lrbus \
 "
 
 RUSTFLAGS += "-L ${STAGING_LIBDIR} -l rbus"
-BREAKPAD_BIN_append = " ieee1905-em"
+BREAKPAD_BIN:append = " ieee1905-em"
 
 # Source directory
 S = "${WORKDIR}/git"
@@ -39,7 +39,7 @@ S = "${WORKDIR}/git"
 #dependencies from crates.io
 require includes/ieee1905_dependencies.inc
 
-do_install_append() {
+do_install:append() {
     install -d ${D}${systemd_unitdir}/system
     install -D -m 0644 ${WORKDIR}/ieee1905_*.service ${D}${systemd_unitdir}/system/
     DISTRO_EM_EXT_ENABLED="${@bb.utils.contains('DISTRO_FEATURES','em_extender','true','false',d)}"
@@ -48,12 +48,12 @@ do_install_append() {
     fi
 }
 
-SYSTEMD_SERVICE_${PN} = " ${@bb.utils.contains('DISTRO_FEATURES','em_extender','',' ieee1905_em_ctrl.service',d)}"
-SYSTEMD_SERVICE_${PN} += " ieee1905_em_agent.service"
+SYSTEMD_SERVICE:${PN} = " ${@bb.utils.contains('DISTRO_FEATURES','em_extender','',' ieee1905_em_ctrl.service',d)}"
+SYSTEMD_SERVICE:${PN} += " ieee1905_em_agent.service"
 
-FILES_${PN} += " \
+FILES:${PN} += " \
     /usr/bin/* \
     ${systemd_unitdir}/system/* \
 "
 
-INSANE_SKIP_${PN} = "already-stripped"
+INSANE_SKIP:${PN} = "already-stripped"

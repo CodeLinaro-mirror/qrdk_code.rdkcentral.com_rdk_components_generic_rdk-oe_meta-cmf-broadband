@@ -7,7 +7,7 @@ HOMEPAGE = "https://dev.mysql.com/downloads/connector/cpp/"
 LICENSE = "GPL-2.0"
 LIC_FILES_CHKSUM = "file://Licenses_for_Third-Party_Components.txt;md5=b2cee022e19f3b50d086e8570b50376a"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 PV = "1.1.9"
 
@@ -31,7 +31,7 @@ TARGET_CXXFLAGS += "-I${STAGING_DIR_TARGET}/usr/include/mysql/server "
 
 SRC_URI = "https://downloads.mysql.com/archives/get/p/20/file/mysql-connector-c++-${PV}.tar.gz"
 SRC_URI[sha256sum] = "3e31847a69a4e5c113b7c483731317ec4533858e3195d3a85026a0e2f509d2e4"
-SRC_URI_append = " file://build_issues_fix.patch "
+SRC_URI:append = " file://build_issues_fix.patch "
 
 S = "${WORKDIR}/mysql-connector-c++-${PV}"
 
@@ -84,7 +84,7 @@ do_configure:prepend() {
 EOF
 }
 
-do_install_append() {
+do_install:append() {
        rm ${D}/usr/README ${D}/usr/COPYING ${D}/usr/Licenses_for_Third-Party_Components.txt ${D}${libdir}/*.a
 }
 

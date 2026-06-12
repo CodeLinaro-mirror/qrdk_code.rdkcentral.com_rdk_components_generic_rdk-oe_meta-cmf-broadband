@@ -1,9 +1,9 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 inherit coverity
 
 DEPENDS += "json-c breakpad breakpad-wrapper"
-DEPENDS_remove = "hal-ledmanager"
+DEPENDS:remove = "hal-ledmanager"
 
 CFLAGS += " -Wno-implicit-function-declaration -DFEATURE_RDKB_LED_MANAGER"
 CFLAGS += "-I${STAGING_INCDIR}/breakpad "

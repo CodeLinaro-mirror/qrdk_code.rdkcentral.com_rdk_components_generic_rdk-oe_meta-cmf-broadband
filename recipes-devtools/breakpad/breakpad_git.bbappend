@@ -1,3 +1,3 @@
-FILESEXTRAPATHS_append := "${THISDIR}/files:"
+FILESEXTRAPATHS:append := "${THISDIR}/files:"
 
 SRC_URI += " file://breakpad_processname_revised.patch"
