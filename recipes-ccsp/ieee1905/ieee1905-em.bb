@@ -9,8 +9,8 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 # Source repository
 SRC_URI = "git://github.com/rdkcentral/ieee1905-rs.git;nobranch=1;protocol=https"
-SRCREV = "606023b5607e0d135f8592797aaa5c6f0b85a562"
-PV = "v0.5.2"
+SRCREV = "9eb6127c05250f0174a113688d7e577e1af35732"
+PV = "v0.6.0"
 
 SRC_URI += "\
      ${@bb.utils.contains('DISTRO_FEATURES','em_extender',' file://ieee1905_em_ext_agent.service ',' file://ieee1905_em_agent.service ',d)} \
@@ -30,7 +30,7 @@ LDFLAGS_append = " \
     -lrbus \
 "
 
-RUSTFLAGS += "-L ${STAGING_LIBDIR} -l rbus"
+RUSTFLAGS += "-L ${STAGING_LIBDIR} -l rbus --cfg tokio_unstable"
 BREAKPAD_BIN_append = " ieee1905-em"
 
 # Source directory
