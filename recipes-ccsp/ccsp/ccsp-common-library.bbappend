@@ -7,3 +7,8 @@ do_install:append:class-target () {
 	       sed -i "s/ExecStart=\/usr\/bin\/CcspWifiSsp -subsys \$Subsys/ExecStart=\/bin\/sh -c '\/usr\/bin\/CcspWifiSsp -subsys \$Subsys 2\&\>\/rdklogs\/logs\/wifihal.log'/g" ${D}/lib/systemd/system/ccspwifiagent.service
          fi 
 }
+
+CPPFLAGS:append = " -I${RECIPE_SYSROOT}/usr/include/safeclib"
+CFLAGS:append = " \
+    -Wno-error=implicit-function-declaration \
+"
