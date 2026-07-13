@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://${S}/src/import/LICENSE;md5=e0b1ae637439c7d6f4487fb90
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh-cli"
 PV_Unified-wifi-mesh = "v0.2.1"
-SRCREV_Unified-wifi-mesh-cli = "6a07e214540bb4f6b171f6428691b193ce2f2cb1"
+SRCREV_Unified-wifi-mesh-cli = "2c1a504a8ffd6981bc817817c5d5e40fc5e7fa0c"
 SRCREV_FORMAT = "Unified-wifi-mesh-cli"
 
 GO_IMPORT = "import"
