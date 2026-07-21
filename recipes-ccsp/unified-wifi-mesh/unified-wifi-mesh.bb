@@ -7,7 +7,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh"
 PV_Unified-wifi-mesh = "v0.2.1"
-SRCREV_Unified-wifi-mesh = "2c1a504a8ffd6981bc817817c5d5e40fc5e7fa0c"
+SRCREV_Unified-wifi-mesh = "d4429495a380f4452160b03340847e25f82bc170"
 SRCREV_FORMAT = "Unified-wifi-mesh"
 
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://ext_em_agent.service', ' file://em_agent.service', d)}"
