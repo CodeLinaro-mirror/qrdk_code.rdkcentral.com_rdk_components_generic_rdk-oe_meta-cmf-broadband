@@ -1,5 +1,23 @@
 inherit coverity
 
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+SRC_URI:remove = "git://github.com/rdkcentral/rdk-wifi-hal.git;protocol=https;branch=main;name=rdk-wifi-hal"
+SRC_URI += "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/rdk-wifi-hal.git;protocol=https;branch=develop;name=rdk-wifi-hal', 'git://github.com/rdkcentral/rdk-wifi-hal.git;protocol=https;nobranch=1;name=rdk-wifi-hal', d)}"
+SRC_URI += "${@bb.utils.contains('DISTRO_FEATURES', 'EasyMesh', bb.utils.contains('DISTRO_FEATURES', 'em_extender', 'file://EasymeshCfg_ext.json ','file://EasymeshCfg.json ', d), ' ', d)}"
+SRCREV_rdk-wifi-hal = "${@d.getVar('AUTOREV') if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d) else 'b5e993135436885962f0c3535229e7ad5371ae80'}"
+
+
 DEPENDS:remove = "mountutils"
 
-CFLAGS:append:wrynose = " -Wno-deprecated-declarations -Wno-enum-conversion"
+CFLAGS:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'generic_mlo', ' -DCONFIG_GENERIC_MLO -DCONFIG_MLO ', '', d)}"
+CFLAGS:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'EasyMesh', ' -DEASY_MESH_NODE  ', '', d)}"
+
+do_install:append() {
+     DISTRO_EM_ENABLED="${@bb.utils.contains('DISTRO_FEATURES','EasyMesh','true','false',d)}"
+     if [ $DISTRO_EM_ENABLED = 'true' ]; then
+        install -d ${D}/usr/ccsp/EasyMesh
+        install -m 0644 ${WORKDIR}/Easymesh*.json  ${D}/usr/ccsp/EasyMesh/EasymeshCfg.json
+     fi
+}
+
+FILES:${PN}:append = "${@bb.utils.contains('DISTRO_FEATURES', 'EasyMesh', ' /usr/ccsp/EasyMesh/* ', '', d)}"

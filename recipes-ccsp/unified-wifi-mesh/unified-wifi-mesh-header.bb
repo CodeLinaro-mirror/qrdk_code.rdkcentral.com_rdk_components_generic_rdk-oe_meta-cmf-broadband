@@ -5,10 +5,10 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=e0b1ae637439c7d6f4487fb90163c79a"
 
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/unified-wifi-mesh.git;branch=develop;protocol=https;name=Unified-wifi-mesh_header', 'git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh_header', d)}"
 PV = "v0.3.1"
-SRCREV_Unified-wifi-mesh_header = "${@d.getVar('AUTOREV') if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d) else 'c0e72a31c96cc63cc366fcf2b628132185985d2a'}"
 
-SRCREV_FORMAT = "Unified-wifi-mesh_header"
 S = "${UNPACKDIR}/${PN}-${PV}"
+SRCREV_Unified-wifi-mesh_header = "${@d.getVar('AUTOREV') if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d) else 'cba4980a1b880ca6f11c479ecb62a7544fa6a42d'}"
+SRCREV_FORMAT = "Unified-wifi-mesh_header"
 
 
 do_install() {

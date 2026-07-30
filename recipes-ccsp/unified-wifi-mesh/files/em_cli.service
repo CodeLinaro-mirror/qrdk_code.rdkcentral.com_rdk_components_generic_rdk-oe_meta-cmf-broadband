@@ -23,6 +23,7 @@ After=em_agent.service
 [Service]
 Type=forking
 WorkingDirectory=/usr/ccsp/EasyMesh
+ExecStartPre=/bin/sh -c '/usr/ccsp/EasyMesh/em_cli_pre_start_rdkb.sh'
 ExecStart=/bin/sh -c '/usr/bin/onewifi_em_cli >> /tmp/em_cli.log &'
 Restart=always
 

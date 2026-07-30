@@ -7,8 +7,8 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/unified-wifi-mesh.git;branch=develop;protocol=https;name=Unified-wifi-mesh', 'git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh', d)}"
 PV_Unified-wifi-mesh = "v0.3.1"
-SRCREV_Unified-wifi-mesh = "${@d.getVar('AUTOREV') if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d) else 'c0e72a31c96cc63cc366fcf2b628132185985d2a'}"
 
+SRCREV_Unified-wifi-mesh = "${@d.getVar('AUTOREV') if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d) else 'cba4980a1b880ca6f11c479ecb62a7544fa6a42d'}"
 SRCREV_FORMAT = "Unified-wifi-mesh"
 
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://ext_em_agent.service', ' file://em_agent.service', d)}"
@@ -16,6 +16,7 @@ SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file:/
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://em_cli.service', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_mysql_db_pre.sh', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_mysql_db_post.sh', d)}"
+SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://em_ctrl_pre_start_rdkb.sh', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://setup_ext_pre.sh', '', d)}"
 SRC_URI:append:wrynose = " file://wrynose-easymesh-runtime-issue.patch"
 
@@ -36,9 +37,9 @@ CPPFLAGS:append = " \
     -I${STAGING_INCDIR}/dbus-1.0 \
     -I${STAGING_LIBDIR}/dbus-1.0/include \
 "
-CPPFLAGS:append = " -g -DEASY_MESH_NODE -DEM_APP -std=c++17 -D_PLATFORM_BANANAPI_R4_ "
+CPPFLAGS:append = " -g -DEASY_MESH_NODE -DEM_APP -std=c++17 -DRDKB_BUILD "
 CPPFLAGS:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'with_alsap',' -DAL_SAP', '', d)}"
-CFLAGS:append = " -D_PLATFORM_BANANAPI_R4_ "
+CFLAGS:append = " -DRDKB_BUILD "
 
 LDFLAGS:append = " \
     -lm \
@@ -72,6 +73,7 @@ do_install:append() {
        cp ${UNPACKDIR}/ext_em_agent.service ${UNPACKDIR}/em_agent.service
     else
        install -m 664 ${S}/install/config/*  ${D}/usr/ccsp/EasyMesh
+       install -m 755 ${WORKDIR}/em_ctrl_pre_start_rdkb.sh ${D}/usr/ccsp/EasyMesh
     fi
     install -D -m 0644 ${UNPACKDIR}/em_*.service ${D}${systemd_unitdir}/system/
 
