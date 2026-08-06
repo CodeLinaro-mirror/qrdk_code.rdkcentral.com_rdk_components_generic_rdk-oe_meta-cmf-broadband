@@ -10,7 +10,7 @@ PV_Unified-wifi-mesh = "v0.2.1"
 SRCREV_Unified-wifi-mesh = "2fdd34f70373543bd2372dde68582beaf596cbbb"
 SRCREV_FORMAT = "Unified-wifi-mesh"
 
-SRC_URI += "git://github.com/rdkcentral/OneWifi.git;branch=develop;protocol=https;name=OneWifi;destsuffix=git/OneWifi"
+SRC_URI += "git://github.com/rdkcentral/OneWifi.git;branch=develop;protocol=https;name=OneWifi;destsuffix=${BP}/OneWifi"
 SRCREV_OneWifi = "4bc321930ccdacad095b161cf9fb6a2a9e14a527"
 
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://ext_em_agent.service', ' file://em_agent.service', d)}"
@@ -20,7 +20,7 @@ SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file:/
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_mysql_db_post.sh', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://setup_ext_pre.sh', '', d)}"
 
-S = "${WORKDIR}/git"
+S = "${UNPACKDIR}/${PN}-${PV}"
 
 DEPENDS = " ccsp-one-wifi rbus rdk-wifi-halif mariadb gtest breakpad breakpad-wrapper"
 DEPENDS += "gcc-sanitizers"
@@ -43,6 +43,7 @@ CFLAGS:append = " -D_PLATFORM_BANANAPI_R4_ "
 
 LDFLAGS:append = " \
     -lm \
+    -lsafec \
     -lcjson \
     -lpthread \
     -ldl \
@@ -65,18 +66,18 @@ do_install:append() {
     install -d ${D}${systemd_unitdir}/system
     install -m 644 ${S}/install/bin/*  ${D}/usr/ccsp/EasyMesh
     install -m 755 ${S}/config/rdkb/banana-pi/setup_veth*.sh  ${D}/usr/ccsp/EasyMesh
-    install -m 755 ${WORKDIR}/setup_*.sh ${D}/usr/ccsp/EasyMesh
+    install -m 755 ${UNPACKDIR}/setup_*.sh ${D}/usr/ccsp/EasyMesh
     DISTRO_EM_EXT_ENABLED="${@bb.utils.contains('DISTRO_FEATURES','em_extender','true','false',d)}"
     if [ $DISTRO_EM_EXT_ENABLED = 'true' ]; then
-       cp ${WORKDIR}/ext_em_agent.service ${WORKDIR}/em_agent.service
+       cp ${UNPACKDIR}/ext_em_agent.service ${UNPACKDIR}/em_agent.service
     else
        install -m 664 ${S}/install/config/*  ${D}/usr/ccsp/EasyMesh
     fi
-    install -D -m 0644 ${WORKDIR}/em_*.service ${D}${systemd_unitdir}/system/
+    install -D -m 0644 ${UNPACKDIR}/em_*.service ${D}${systemd_unitdir}/system/
 
     #Needed for WFA Data Elements.
     install -d ${D}/nvram
-    install -m 755 ${WORKDIR}/git/src/ctrl/tr_181/wfa_data_model/Data_Elements_JSON_Schema_v3.0.json ${D}/nvram
+    install -m 755 ${UNPACKDIR}/${BP}/src/ctrl/tr_181/wfa_data_model/Data_Elements_JSON_Schema_v3.0.json ${D}/nvram
 }
 
 SYSTEMD_SERVICE:${PN} = " em_agent.service"

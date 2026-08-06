@@ -8,7 +8,8 @@ PV = "v0.2.1"
 SRCREV_Unified-wifi-mesh_header = "2fdd34f70373543bd2372dde68582beaf596cbbb"
 SRCREV_FORMAT = "Unified-wifi-mesh_header"
 
-S = "${WORKDIR}/git"
+S = "${UNPACKDIR}/${PN}-${PV}"
+
 
 do_install() {
     install -d ${D}/usr/include/ccsp

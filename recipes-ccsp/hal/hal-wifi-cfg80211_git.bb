@@ -22,5 +22,3 @@ CFLAGS:append = " -I=${includedir}/ccsp -I=${includedir}/libnl3"
 LDFLAGS:append = " -lnl-nf-3 -lnl-route-3 -lnl-3 -lnl-xfrm-3 -lnl-genl-3 -lev -lwpa_client"
 
 RDEPENDS:${PN} += "wpa-supplicant"
-DEPENDS += "rdk-wifi-halif"
-DEPENDS += "rdk-wifi-halif"
