@@ -23,10 +23,8 @@ After=mysqld.service ieee1905_em_ctrl.service CcspPandMSsp.service
 [Service]
 Type=forking
 WorkingDirectory=/usr/ccsp/EasyMesh
+ExecStartPre=/bin/sh -c '/usr/ccsp/EasyMesh/em_ctrl_pre_start_rdkb.sh'
 ExecStartPre=/bin/sh -c '/usr/ccsp/EasyMesh/setup_mysql_db_pre.sh'
-ExecStartPre=/bin/sh -c 'if [ ! -f /nvram/Data_Elements_JSON_Schema_v3.0.json ]; then /bin/cp /usr/ccsp/EasyMesh/Data_Elements_JSON_Schema_v3.0.json /nvram ;fi'
-ExecStartPre=/bin/sh -c 'if [ ! -f /nvram/EasymeshCfg.json ]; then /bin/cp /usr/ccsp/EasyMesh/EasymeshCfg.json /nvram ;fi'
-ExecStartPre=/bin/sh -c 'if [ ! -f /nvram/test_cert.crt ]; then /bin/cp /usr/ccsp/EasyMesh/test_cert.* /nvram /bin/cp /usr/ccsp/EasyMesh/create-cert /nvram ;fi'
 ExecStart=/bin/sh -c '/usr/bin/onewifi_em_ctrl bpi\@root >> /tmp/em_ctrl.log &'
 Restart=always
 

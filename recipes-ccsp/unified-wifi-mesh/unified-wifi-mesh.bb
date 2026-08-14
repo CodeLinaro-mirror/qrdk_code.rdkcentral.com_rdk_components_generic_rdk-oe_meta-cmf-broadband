@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=e0b1ae637439c7d6f4487fb90163c79a"
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/unified-wifi-mesh.git;branch=develop;protocol=https;name=Unified-wifi-mesh', 'git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh', d)}"
-PV_Unified-wifi-mesh = "v0.3.1"
+PV = "v0.3.1"
 SRCREV_Unified-wifi-mesh = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', 'c0e72a31c96cc63cc366fcf2b628132185985d2a', d)}"
 SRCREV_FORMAT = "Unified-wifi-mesh"
 
@@ -15,6 +15,7 @@ SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file:/
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://em_cli.service', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_mysql_db_pre.sh', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_mysql_db_post.sh', d)}"
+SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://em_ctrl_pre_start_rdkb.sh', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://setup_ext_pre.sh', '', d)}"
 
 S = "${WORKDIR}/git"
@@ -69,6 +70,7 @@ do_install_append() {
        cp ${WORKDIR}/ext_em_agent.service ${WORKDIR}/em_agent.service
     else
        install -m 664 ${S}/install/config/*  ${D}/usr/ccsp/EasyMesh
+       install -m 755 ${WORKDIR}/em_ctrl_pre_start_rdkb.sh ${D}/usr/ccsp/EasyMesh
     fi
     install -D -m 0644 ${WORKDIR}/em_*.service ${D}${systemd_unitdir}/system/
 
