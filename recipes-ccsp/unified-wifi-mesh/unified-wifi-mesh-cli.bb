@@ -7,7 +7,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/unified-wifi-mesh.git;branch=develop;protocol=https;name=Unified-wifi-mesh-cli', 'git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh-cli', d)}"
 SRC_URI += " file://em_cli_pre_start_rdkb.sh "
 PV = "v0.3.1"
-SRCREV_Unified-wifi-mesh-cli = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', 'c0e72a31c96cc63cc366fcf2b628132185985d2a', d)}"
+SRCREV_Unified-wifi-mesh-cli = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', 'e88ccc00255ad8607329c78de631387b5e42f32a', d)}"
 SRCREV_FORMAT = "Unified-wifi-mesh-cli"
 
 GO_IMPORT = "import"

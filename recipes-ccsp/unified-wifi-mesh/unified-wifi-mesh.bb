@@ -7,7 +7,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/unified-wifi-mesh.git;branch=develop;protocol=https;name=Unified-wifi-mesh', 'git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh', d)}"
 PV = "v0.3.1"
-SRCREV_Unified-wifi-mesh = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', 'c0e72a31c96cc63cc366fcf2b628132185985d2a', d)}"
+SRCREV_Unified-wifi-mesh = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', 'e88ccc00255ad8607329c78de631387b5e42f32a', d)}"
 SRCREV_FORMAT = "Unified-wifi-mesh"
 
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://ext_em_agent.service', ' file://em_agent.service', d)}"
@@ -35,9 +35,9 @@ CPPFLAGS_append = " \
     -I${STAGING_INCDIR}/dbus-1.0 \
     -I${STAGING_LIBDIR}/dbus-1.0/include \
 "
-CPPFLAGS_append = " -g -DEASY_MESH_NODE -DEM_APP -std=c++17 -D_PLATFORM_BANANAPI_R4_ -DRDKB_BUILD "
+CPPFLAGS_append = " -g -DEASY_MESH_NODE -DEM_APP -std=c++17 -DRDKB_BUILD "
 CPPFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'with_alsap',' -DAL_SAP', '', d)}"
-CFLAGS_append = " -D_PLATFORM_BANANAPI_R4_ -DRDKB_BUILD "
+CFLAGS_append = " -DRDKB_BUILD "
 
 LDFLAGS_append = " \
     -lm \

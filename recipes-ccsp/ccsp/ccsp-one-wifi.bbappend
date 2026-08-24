@@ -1,7 +1,7 @@
 inherit coverity
 
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/OneWifi.git;protocol=https;branch=develop;name=OneWifi', 'git://github.com/rdkcentral/OneWifi.git;protocol=https;nobranch=1;name=OneWifi', d)}"
-SRCREV_OneWifi = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', '61543dfc644366392caac092e81a3511340701ab', d)}"
+SRCREV_OneWifi = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', '595a697fe1f6c443b5b5fb29a32cfb18f0702ac7', d)}"
 SRCREV_FORMAT = "OneWifi"
 
 DEPENDS_append = " mesh-agent "
