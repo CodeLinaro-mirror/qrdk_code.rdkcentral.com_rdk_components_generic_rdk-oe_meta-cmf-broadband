@@ -1,5 +1,5 @@
 ## --*- bitbake -*--
-SRC_URI_BASE ?= "https://github.com/pjsip/pjproject/archive/${PV}.tar.gz"
+SRC_URI_BASE ?= "git://github.com/pjsip/pjproject.git;protocol=https;nobranch=1;tag=${PV}"
 
 SRC_URI = "\
     ${SRC_URI_BASE} \
@@ -59,7 +59,7 @@ EXTRA_OECONF += "\
 ## Not SMP safe
 PARALLEL_MAKE = ""
 
-LD = "${CC}"
+LD:forcevariable = "${@bb.utils.contains('DISTRO_FEATURES', 'wrynose', '${CC}', '${HOST_PREFIX}ld${TOOLCHAIN_OPTIONS} ${HOST_LD_ARCH}', d)}"
 CXXFLAGS += "-Wno-deprecated"
 
 CLEANBROKEN = "1"

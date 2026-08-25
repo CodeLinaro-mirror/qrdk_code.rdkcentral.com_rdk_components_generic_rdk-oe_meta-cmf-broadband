@@ -11,7 +11,9 @@ SRC_URI = "\
     file://dyn-lib.patch \
 "
 SRC_URI[sha256sum] = "4903652f68a8c04d0041f0d19b1eb713ddcd2aa011c5e595b3b8bca2755270f6"
-S = "${WORKDIR}/gsm-1.0-pl19"
+S = "${UNPACKDIR}/gsm-1.0-pl19"
+
+CFLAGS:append = " -Wno-error=incompatible-pointer-types"
 
 EXTRA_OEMAKE = "\
     CC='${CC}' \

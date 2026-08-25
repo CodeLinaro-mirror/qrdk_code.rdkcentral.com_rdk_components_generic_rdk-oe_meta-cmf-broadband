@@ -9,7 +9,7 @@ SRC_URI[gradle.md5sum] = "90db63b9cd864a6e6bc8d0c5e72ca5a2"
 SRC_URI[gradle.sha256sum] = "af334d994b5e69e439ab55b5d2b7d086da5ea6763d78054f49f147b06370ed71" 
 
 
-S = "${WORKDIR}/gradle-${PV}"
+S = "${UNPACKDIR}/gradle-${PV}"
 
 do_install() {
       install -m 0755 -d  ${D}${bindir}

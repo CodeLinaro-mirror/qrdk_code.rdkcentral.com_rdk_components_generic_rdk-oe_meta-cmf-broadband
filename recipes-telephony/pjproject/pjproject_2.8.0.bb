@@ -4,7 +4,6 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 SRCREV = "d3923d2dc9aca1fac0f8a6c03591fca7205824d2"
 GITREF = ";nobranch=1"
 SRC_URI_BASE = "git://github.com/asterisk/pjproject.git;protocol=http${GITREF}"
-S = "${WORKDIR}/git"
 
 require pjproject.inc
 

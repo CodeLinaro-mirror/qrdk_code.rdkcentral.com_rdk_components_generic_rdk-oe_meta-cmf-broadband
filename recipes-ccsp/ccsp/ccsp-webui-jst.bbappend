@@ -11,21 +11,21 @@ SRC_URI += "file://webgui_config.sh"
 do_install:append () {
        #For RDKM Logo
        install -d ${D}/usr/www2/cmn/syndication/img
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/captiveportal_videotron_logo.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/logo_videotron.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/Sky_Wifi.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/cox_color_logo.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/cox_white_logo.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/captiveportal_rogers_logo.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/logo_rogers.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/captiveportal_shaw_logo.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/logo_shaw.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/captiveportal_arris_logo.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/logo_arris.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/logo-generic.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/captiveportal_videotron_logo.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/logo_videotron.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/Sky_Wifi.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/cox_color_logo.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/cox_white_logo.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/captiveportal_rogers_logo.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/logo_rogers.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/captiveportal_shaw_logo.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/logo_shaw.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/captiveportal_arris_logo.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/logo_arris.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www2/cmn/syndication/img/logo-generic.png
 
-       install -m 755 ${WORKDIR}/webgui_config.sh ${D}/${sysconfdir}/webgui_config.sh
+       install -m 755 ${UNPACKDIR}/webgui_config.sh ${D}/${sysconfdir}/webgui_config.sh
 }
 
 FILES:${PN} += "/usr/www2/cmn/syndication/img/* \

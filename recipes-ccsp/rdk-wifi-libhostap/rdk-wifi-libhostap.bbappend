@@ -2,7 +2,6 @@ SRC_URI:remove += "${RDKB_CCSP_ROOT_GIT}/rdk-wifi-libhostap;protocol=${RDK_GIT_P
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-S = "${WORKDIR}/git"
 
 SRC_URI += "git://w1.fi/hostap.git;protocol=https;branch=main;destsuffix=${S}/source/hostap-${HOSTAPD_PV};name=${HOSTAPD_PV}"
 SRCREV_2.10 = "9d07b9447e76059a2ddef2a879c57d0934634188"
