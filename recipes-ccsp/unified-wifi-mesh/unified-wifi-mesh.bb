@@ -29,7 +29,9 @@ RDEPENDS:${PN} += "${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' ', '
 inherit autotools pkgconfig systemd breakpad-wrapper
 CFLAGS += "-I${STAGING_INCDIR}/breakpad "
 CXXFLAGS += "-I${STAGING_INCDIR}/breakpad "
-
+do_configure:prepend:wrynose() {
+    sed -i '/#include <vector>/a #include <algorithm>' ${S}/inc/util.h
+}
 CPPFLAGS:append = " \
     -I${STAGING_INCDIR} \
     -I${STAGING_INCDIR}/rbus \
@@ -40,6 +42,7 @@ CPPFLAGS:append = " \
 CPPFLAGS:append = " -g -DEASY_MESH_NODE -DEM_APP -std=c++17 -D_PLATFORM_BANANAPI_R4_ "
 CPPFLAGS:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'with_alsap',' -DAL_SAP', '', d)}"
 CFLAGS:append = " -D_PLATFORM_BANANAPI_R4_ "
+CFLAGS:append:wrynose = " -Wno-implicit-function-declaration"
 
 LDFLAGS:append = " \
     -lm \
