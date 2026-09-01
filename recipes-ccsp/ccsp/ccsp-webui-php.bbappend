@@ -19,19 +19,19 @@ do_install:prepend() {
 do_install:append () {
        #For RDKM Logo
        install -d ${D}/usr/www/cmn/syndication/img
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/captiveportal_videotron_logo.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/logo_videotron.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/Sky_Wifi.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/cox_color_logo.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/cox_white_logo.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/captiveportal_rogers_logo.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/logo_rogers.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/captiveportal_shaw_logo.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/logo_shaw.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/captiveportal_arris_logo.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/logo_arris.png
-       install -m 644 ${WORKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/logo-generic.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/captiveportal_videotron_logo.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/logo_videotron.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/Sky_Wifi.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/cox_color_logo.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/cox_white_logo.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/captiveportal_rogers_logo.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/logo_rogers.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/captiveportal_shaw_logo.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/logo_shaw.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/captiveportal_arris_logo.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/logo_arris.png
+       install -m 644 ${UNPACKDIR}/logo_rdk.png ${D}/usr/www/cmn/syndication/img/logo-generic.png
 }
 
 FILES:${PN} += "/usr/www/cmn/syndication/img/* \
