@@ -18,6 +18,10 @@ EXTRA_AUTORECONF += "\
 #   autoreconf: error: .../autoconf failed with exit status: 1
 EXTRA_AUTORECONF:append:wrynose = " -I ${S}/autoconf -I ${S}/third-party"
 
+EXTRA_OECONF:append:wrynose = " --without-opusfile"
+
+CFLAGS:append:wrynose = " -Wno-error=int-conversion "
+
 PACKAGECONFIG ?= "\
     ${@bb.utils.contains('DISTRO_FEATURES', 'largefile', 'largefile', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'systemd',   'systemd', '', d)} \
