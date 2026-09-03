@@ -1,5 +1,5 @@
 # Ensure Rust and Cargo are available
-inherit cargo systemd breakpad-wrapper
+inherit cargo systemd breakpad-wrapper cargo-update-recipe-crates
 
 DESCRIPTION = "IEEE 1905 Rust Program"
 LICENSE = "Apache-2.0"
@@ -7,6 +7,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=b538373fe584898492d2ad3a91014d58"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
+FETCHCMD_wget = "/usr/bin/env wget -t 2 -T 30 --passive-ftp --user-agent='BitBake-Kirkstone/2.18'"
 # Source repository
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/ieee1905-rs.git;branch=develop;protocol=https', 'git://github.com/rdkcentral/ieee1905-rs.git;nobranch=1;protocol=https', d)}"
 SRCREV = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', '9eb6127c05250f0174a113688d7e577e1af35732', d)}"
@@ -37,7 +38,7 @@ BREAKPAD_BIN_append = " ieee1905-em"
 S = "${WORKDIR}/git"
 
 #dependencies from crates.io
-require includes/ieee1905_dependencies.inc
+require ${@bb.utils.contains('DISTRO_FEATURES','BuildFromTip','includes/ieee1905_dependencies_tip.inc','includes/ieee1905_dependencies.inc',d)}
 
 do_install_append() {
     install -d ${D}${systemd_unitdir}/system
