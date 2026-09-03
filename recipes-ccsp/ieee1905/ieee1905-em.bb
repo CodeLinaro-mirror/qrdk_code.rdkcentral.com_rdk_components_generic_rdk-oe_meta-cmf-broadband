@@ -1,6 +1,5 @@
 # Ensure Rust and Cargo are available
 inherit cargo systemd breakpad-wrapper cargo-update-recipe-crates
-include ieee1905-em-crates.inc
 
 DESCRIPTION = "IEEE 1905 Rust Program"
 LICENSE = "Apache-2.0"
@@ -8,6 +7,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=b538373fe584898492d2ad3a91014d58"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
+FETCHCMD_wget = "/usr/bin/env wget -t 2 -T 30 --passive-ftp --user-agent='BitBake-Kirkstone/2.18'"
 # Source repository
 SRC_URI = "git://github.com/rdkcentral/ieee1905-rs.git;nobranch=1;protocol=https"
 SRCREV = "e5b046be767b492dcfe4d1864954864aee1864d8"
