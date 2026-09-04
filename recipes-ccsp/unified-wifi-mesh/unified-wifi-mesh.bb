@@ -88,3 +88,5 @@ SYSTEMD_SERVICE:${PN} += " ${@bb.utils.contains('DISTRO_FEATURES','em_extender',
 
 FILES:${PN} += "${libdir}/*.so*  ${bindir}/* /usr/ccsp/EasyMesh/* /nvram/* "
 FILES:${PN} += "${systemd_unitdir}/system/* "
+INSANE_SKIP:${PN}:wrynose += "buildpaths"
+
