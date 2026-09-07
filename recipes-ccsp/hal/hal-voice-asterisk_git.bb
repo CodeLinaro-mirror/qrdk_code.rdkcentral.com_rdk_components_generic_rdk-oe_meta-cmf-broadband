@@ -26,7 +26,7 @@ do_install:append () {
 SYSTEMD_SERVICE:${PN} += "hal-voice-asterisk.service"
 SYSTEMD_AUTO_ENABLE = "enable"
 
-FILES_${PN} += " \
+FILES:${PN} += " \
     /usr/bin/* \
     ${systemd_unitdir}/system/hal-voice-asterisk.service \
 "

@@ -10,7 +10,16 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 # Source repository
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/ieee1905-rs.git;branch=develop;protocol=https', 'git://github.com/rdkcentral/ieee1905-rs.git;nobranch=1;protocol=https', d)}"
-SRCREV = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', '9eb6127c05250f0174a113688d7e577e1af35732', d)}"
+#SRCREV = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', '9eb6127c05250f0174a113688d7e577e1af35732', d)}"
+
+SRCREV_FIXED = "9eb6127c05250f0174a113688d7e577e1af35732"
+
+python __anonymous() {
+    if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d):
+        d.setVar('SRCREV', '${AUTOREV}')
+    else:
+        d.setVar('SRCREV', d.getVar('SRCREV_FIXED'))
+}
 PV = "v0.6.0"
 
 SRC_URI += "\
