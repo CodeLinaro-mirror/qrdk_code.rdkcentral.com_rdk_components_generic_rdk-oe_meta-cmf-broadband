@@ -16,16 +16,6 @@ echo "$(date '+%Y-%m-%d %H:%M:%S') setup_sqlite_db_post: starting"
 ctrl_al_mac="$(cat /sys/class/net/eth0_virt_peer/address)"
 agent_al_mac="$(cat /sys/class/net/eth1_virt_peer/address)"
 
-# Keep the configuration MAC synchronized on every invocation, including when
-# the database is already initialized and the script exits below.
-if [ -f "$EASYMESH_CONFIG_FILE" ]; then
-  old_ctrl_al_mac_addr="$(grep AL_MAC_ADDR "$EASYMESH_CONFIG_FILE" | cut -d '"' -f4)"
-  if [ -n "$old_ctrl_al_mac_addr" ] && [ "$old_ctrl_al_mac_addr" != "$ctrl_al_mac" ]; then
-    sed -i "s/$old_ctrl_al_mac_addr/$ctrl_al_mac/g" "$EASYMESH_CONFIG_FILE"
-    echo "Updated AL_MAC_ADDR from $old_ctrl_al_mac_addr to $ctrl_al_mac in $EASYMESH_CONFIG_FILE"
-  fi
-fi
-
 # Skip schema and seed creation when the database already contains NetworkList.
 if [ -e "$DB_MARKER" ] && [ -s "$DB_FILE" ] &&
    sqlite3 -noheader -batch "$DB_FILE" \
