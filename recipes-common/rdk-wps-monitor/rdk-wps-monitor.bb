@@ -13,16 +13,8 @@ SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${CMF_GITHUB
           "
 
 PV = "1.0.0"
-#SRCREV = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', '10bae35768d234e969723aa51e9016f116f0870e', d)}"
+SRCREV = "${@d.getVar('AUTOREV') if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d) else '10bae35768d234e969723aa51e9016f116f0870e'}"
 
-SRCREV_FIXED = "10bae35768d234e969723aa51e9016f116f0870e"
-
-python __anonymous() {
-    if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d):
-        d.setVar('SRCREV', '${AUTOREV}')
-    else:
-        d.setVar('SRCREV', d.getVar('SRCREV_FIXED'))
-}
 DEPENDS = "rbus"
 
 CFLAGS:append += " -DRBUS_BUILD_INTEGRATED"

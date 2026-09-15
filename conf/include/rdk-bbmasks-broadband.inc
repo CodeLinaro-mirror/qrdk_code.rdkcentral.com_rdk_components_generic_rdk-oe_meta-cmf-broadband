@@ -16,5 +16,5 @@ BBMASK .= "|meta-cmf/recipes-extended/rpcserver/"
 BBMASK .= "|meta-rdk-broadband/recipes-ccsp/ccsp/ccsp-webui-jst-onestack.bbappend"
 BBMASK .= "|meta-rdk-broadband-apps/recipes-kernel/linux/rpi-cmdline.bbappend"
 BBMASK .= "|meta-cmf-filogic/recipes-ccsp/ccsp/rdk-easymesh-controller.bbappend"
-BBMASK .= "|meta-cmf-bananapi/meta-rdk-mtk-bpir4/recipes-wifi/hal/hal-wifi-mt76.bbappend"
-
+BBMASK .= "${@bb.utils.contains('DISTRO_FEATURES', 'wrynose', '|meta-rdk/recipes-common/safec/safec_%.bbappend', '', d)}"
+BBMASK .= "${@bb.utils.contains('DISTRO_FEATURES', 'OneWifi', '|meta-cmf-bananapi/meta-rdk-mtk-bpir4/recipes-wifi/hal/hal-wifi-mt76.bbappend', '', d)}"

@@ -1,6 +1,5 @@
 # Ensure Rust and Cargo are available
 inherit cargo systemd breakpad-wrapper cargo-update-recipe-crates
-include ieee1905-em-crates.inc
 
 DESCRIPTION = "IEEE 1905 Rust Program"
 LICENSE = "Apache-2.0"
@@ -10,22 +9,17 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 # Source repository
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/ieee1905-rs.git;branch=develop;protocol=https', 'git://github.com/rdkcentral/ieee1905-rs.git;nobranch=1;protocol=https', d)}"
-#SRCREV = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', '9eb6127c05250f0174a113688d7e577e1af35732', d)}"
+#SRCREV = "${@d.getVar('AUTOREV') if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d) else '9eb6127c05250f0174a113688d7e577e1af35732'}"
+SRCREV = "9eb6127c05250f0174a113688d7e577e1af35732"
 
-SRCREV_FIXED = "9eb6127c05250f0174a113688d7e577e1af35732"
-
-python __anonymous() {
-    if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d):
-        d.setVar('SRCREV', '${AUTOREV}')
-    else:
-        d.setVar('SRCREV', d.getVar('SRCREV_FIXED'))
-}
 PV = "v0.6.0"
 
 SRC_URI += "\
      ${@bb.utils.contains('DISTRO_FEATURES','em_extender',' file://ieee1905_em_ext_agent.service ',' file://ieee1905_em_agent.service ',d)} \
      ${@bb.utils.contains('DISTRO_FEATURES','em_extender',' ',' file://ieee1905_em_ctrl.service ',d)} \
 "
+
+FETCHCMD_wget = "/usr/bin/env wget -t 2 -T 30 --passive-ftp --user-agent='BitBake-Kirkstone/2.18'"
 
 #Breakpad support
 DEPENDS = "breakpad breakpad-wrapper"
