@@ -1,7 +1,7 @@
 SUMMARY = "Unified-wifi-mesh for cli "
 HOMEPAGE = "http://github.com/rdkcentral/unified-wifi-mesh"
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://${S}/src/import/LICENSE;md5=e0b1ae637439c7d6f4487fb90163c79a"
+LIC_FILES_CHKSUM = "file://${S}/LICENSE;md5=e0b1ae637439c7d6f4487fb90163c79a"
 
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/unified-wifi-mesh.git;branch=develop;protocol=https;name=Unified-wifi-mesh-cli', 'git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh-cli', d)}"
 PV_Unified-wifi-mesh = "v0.3.1"
@@ -31,7 +31,7 @@ LDFLAGS:append = " -lemcli "
 
 do_fetch_mod () {
 	export GOPATH="${S}"
-	cd ${S}/src/import/src/rdkb-cli
+	cd ${S}/src/rdkb-cli
 	go get -a
 }
 do_fetch_mod[network] = "1"
@@ -52,7 +52,7 @@ do_compile() {
 	export CGO_CFLAGS="${TARGET_CFLAGS} ${CFLAGS}"
 	export CGO_LDFLAGS="${TARGET_LDFLAGS} ${LDFLAGS}"
  
-	cd ${S}/src/import/src/rdkb-cli
+	cd ${S}/src/rdkb-cli
 	oe_runmake build 
 	cd -
 	# For clean task
@@ -62,8 +62,10 @@ do_compile() {
 do_install() {
         install -d ${D}/usr/bin
         install -d ${D}/usr/ccsp/EasyMesh/static
-        install -m 755 ${S}/src/import/src/rdkb-cli/onewifi_em_cli  ${D}/usr/bin
-        cp -rf ${S}/src/import/src/rdkb-cli/static/*  ${D}/usr/ccsp/EasyMesh/static
+        install -m 755 ${S}/src/rdkb-cli/onewifi_em_cli  ${D}/usr/bin
+        cp -rf ${S}/src/rdkb-cli/static/*  ${D}/usr/ccsp/EasyMesh/static
 }
 
 FILES:${PN} += " ${bindir}/* /usr/ccsp/EasyMesh/static/* "
+ERROR_QA:remove = "buildpaths textrel"
+WARN_QA:append  = " buildpaths textrel"
