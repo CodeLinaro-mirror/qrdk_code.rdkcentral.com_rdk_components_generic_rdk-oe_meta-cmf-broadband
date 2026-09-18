@@ -71,7 +71,7 @@ SRC_URI += " \
     crate://crates.io/crossterm_winapi/0.9.1 \
     crate://crates.io/crunchy/0.2.4 \
     crate://crates.io/crypto-common/0.1.7 \
-    crate://crates.io/cryptoki/0.12.0 \
+    crate://crates.io/cryptoki/0.12.1 \
     crate://crates.io/cryptoki-sys/0.5.0 \
     crate://crates.io/csscolorparser/0.6.2 \
     crate://crates.io/darling/0.20.11 \
@@ -476,7 +476,7 @@ SRC_URI[crossterm-0.29.0.sha256sum] = "d8b9f2e4c67f833b660cdb0a3523065869fb35570
 SRC_URI[crossterm_winapi-0.9.1.sha256sum] = "acdd7c62a3665c7f6830a51635d9ac9b23ed385797f70a83bb8bafe9c572ab2b"
 SRC_URI[crunchy-0.2.4.sha256sum] = "460fbee9c2c2f33933d720630a6a0bac33ba7053db5344fac858d4b8952d77d5"
 SRC_URI[crypto-common-0.1.7.sha256sum] = "78c8292055d1c1df0cce5d180393dc8cce0abec0a7102adb6c7b1eef6016d60a"
-SRC_URI[cryptoki-0.12.0.sha256sum] = "ff765b99fc49f3116c9a908484486a2b92fd73c48da45c3a69716471c6cc56c6"
+SRC_URI[cryptoki-0.12.1.sha256sum] = "625cf4599c43d69a16996ce2573fc80745a0b0300c962f0bfa11d55b6cab2b2d"
 SRC_URI[cryptoki-sys-0.5.0.sha256sum] = "f1fd850498411e4057f1cba79e6e2bc7cbe960544c1046ab46d4685c403a1121"
 SRC_URI[csscolorparser-0.6.2.sha256sum] = "eb2a7d3066da2de787b7f032c736763eb7ae5d355f81a68bab2675a96008b0bf"
 SRC_URI[darling-0.20.11.sha256sum] = "fc7f46116c46ff9ab3eb1597a45688b6715c6e628b5c133e288e709a29bcb4ee"
