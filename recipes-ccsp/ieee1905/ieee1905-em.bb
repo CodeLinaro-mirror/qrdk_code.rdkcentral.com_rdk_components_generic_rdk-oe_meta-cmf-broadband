@@ -9,8 +9,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 # Source repository
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/ieee1905-rs.git;branch=develop;protocol=https', 'git://github.com/rdkcentral/ieee1905-rs.git;nobranch=1;protocol=https', d)}"
-#SRCREV = "${@d.getVar('AUTOREV') if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d) else '9eb6127c05250f0174a113688d7e577e1af35732'}"
-SRCREV = "9eb6127c05250f0174a113688d7e577e1af35732"
+SRCREV = "${@d.getVar('AUTOREV') if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d) else '9eb6127c05250f0174a113688d7e577e1af35732'}"
 
 PV = "v0.6.0"
 

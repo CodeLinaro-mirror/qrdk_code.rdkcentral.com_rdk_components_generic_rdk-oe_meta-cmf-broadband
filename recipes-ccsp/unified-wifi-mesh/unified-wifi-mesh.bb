@@ -7,9 +7,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/unified-wifi-mesh.git;branch=develop;protocol=https;name=Unified-wifi-mesh', 'git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh', d)}"
 PV_Unified-wifi-mesh = "v0.3.1"
-#SRCREV_Unified-wifi-mesh = "${@d.getVar('AUTOREV') if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d) else 'c0e72a31c96cc63cc366fcf2b628132185985d2a'}"
-SRCREV = "c0e72a31c96cc63cc366fcf2b628132185985d2a"
-
+SRCREV_Unified-wifi-mesh = "${@d.getVar('AUTOREV') if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d) else 'c0e72a31c96cc63cc366fcf2b628132185985d2a'}"
 
 SRCREV_FORMAT = "Unified-wifi-mesh"
 
