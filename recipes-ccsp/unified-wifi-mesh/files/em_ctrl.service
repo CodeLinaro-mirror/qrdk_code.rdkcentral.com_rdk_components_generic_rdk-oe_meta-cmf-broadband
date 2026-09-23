@@ -27,6 +27,7 @@ ExecStartPre=/bin/sh -c '/usr/ccsp/EasyMesh/em_ctrl_pre_start_rdkb.sh'
 ExecStartPre=/bin/sh -c '/usr/ccsp/EasyMesh/setup_mysql_db_pre.sh'
 ExecStart=/bin/sh -c '/usr/bin/onewifi_em_ctrl bpi\@root >> /tmp/em_ctrl.log &'
 Restart=always
+LimitCORE=0
 
 
 [Install]

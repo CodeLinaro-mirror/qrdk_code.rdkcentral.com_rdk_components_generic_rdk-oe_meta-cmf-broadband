@@ -33,6 +33,7 @@ ExecStartPre=/bin/sh -c 'if [ ! -e "/sys/class/net/eth1_virt_peer/address" ]; th
 ExecStart=/bin/sh -c '/usr/bin/ieee1905 -f ${IEEE1905_LOG_LEVEL} -i eth1_virt_peer >> ${EM_LOG_PATH}/ieee1905_agent_log.txt &'
 ExecStopPost=/bin/sh -c 'ip link del eth1_virt_end  2>/dev/null; echo "Cleaned eth1_virt_end"'
 Restart=always
+LimitCORE=0
 
 
 [Install]
