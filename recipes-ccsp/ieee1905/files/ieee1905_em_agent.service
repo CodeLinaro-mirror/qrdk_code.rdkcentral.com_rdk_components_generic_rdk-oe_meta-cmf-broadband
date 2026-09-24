@@ -27,6 +27,7 @@ ExecStartPre=/bin/sh -c 'if [ ! -e "/sys/class/net/eth1_virt_peer/address" ]; th
 ExecStartPre=/bin/sh -c 'while [ ! -e /tmp/wifi_initialized ] || [ ! -e /tmp/wifi_dml_complete ] ;do sleep 1; done '
 ExecStart=/bin/sh -c '/usr/bin/ieee1905 -f off -i eth1_virt_peer >> /tmp/ieee1905_agent_log.txt &'
 Restart=always
+LimitCORE=0
 
 
 [Install]

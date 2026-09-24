@@ -102,5 +102,17 @@
   "notify_comp":{
       "allow":"SYSTEM_GROUP",
       "drop":""
+  },
+  "CcspCMAgentSsp":{
+      "allow":"NETWORK_GROUP,SYSTEM_GROUP,CAP_SYS_ADMIN,CAP_SYS_RAWIO,CAP_MKNOD",
+      "drop":"UGID_GROUP"
+  },
+  "CcspMtaAgentSsp":{
+      "allow":"NETWORK_GROUP,SYSTEM_GROUP",
+      "drop":""
+  },
+  "CcspHotspot":{
+      "allow":"NETWORK_GROUP,CAP_SYS_MODULE",
+      "drop":""
   }
 }

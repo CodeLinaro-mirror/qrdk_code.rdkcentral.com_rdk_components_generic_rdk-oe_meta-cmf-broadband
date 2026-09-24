@@ -7,7 +7,7 @@ SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github
 PV = "v0.3.1"
 
 S = "${UNPACKDIR}/${PN}-${PV}"
-SRCREV_Unified-wifi-mesh_header = "${@d.getVar('AUTOREV') if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d) else 'cba4980a1b880ca6f11c479ecb62a7544fa6a42d'}"
+SRCREV_Unified-wifi-mesh_header = "${@d.getVar('AUTOREV') if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d) else '1c143c78f8150c702db5e83b90a17675b053f245'}"
 SRCREV_FORMAT = "Unified-wifi-mesh_header"
 
 

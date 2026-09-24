@@ -6,9 +6,9 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=e0b1ae637439c7d6f4487fb90163c79a"
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/unified-wifi-mesh.git;branch=develop;protocol=https;name=Unified-wifi-mesh', 'git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh', d)}"
-PV_Unified-wifi-mesh = "v0.3.1"
+PV = "v0.3.1"
 
-SRCREV_Unified-wifi-mesh = "${@d.getVar('AUTOREV') if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d) else 'cba4980a1b880ca6f11c479ecb62a7544fa6a42d'}"
+SRCREV_Unified-wifi-mesh = "${@d.getVar('AUTOREV') if bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', True, False, d) else '1c143c78f8150c702db5e83b90a17675b053f245'}"
 SRCREV_FORMAT = "Unified-wifi-mesh"
 
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://ext_em_agent.service', ' file://em_agent.service', d)}"
@@ -19,12 +19,14 @@ SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file:/
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://em_ctrl_pre_start_rdkb.sh', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://setup_ext_pre.sh', '', d)}"
 SRC_URI:append:wrynose = " file://wrynose-easymesh-runtime-issue.patch"
+SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_sqlite_db_post.sh', d)}"
+SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_sqlite_db_pre.sh', d)}"
 
 S = "${UNPACKDIR}/${PN}-${PV}"
 
-DEPENDS = " ccsp-one-wifi rbus rdk-wifi-halif mariadb gtest breakpad breakpad-wrapper"
+DEPENDS = " ccsp-one-wifi rbus rdk-wifi-halif sqlite3 gtest breakpad breakpad-wrapper"
 DEPENDS += "gcc-sanitizers"
-RDEPENDS:${PN} += "${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' ', ' mariadb', d)}"
+RDEPENDS:${PN} += "${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' ', ' sqlite3', d)}"
 
 inherit autotools pkgconfig systemd breakpad-wrapper
 CFLAGS += "-I${STAGING_INCDIR}/breakpad "
