@@ -27,3 +27,5 @@ FILES:${PN}-server = "\
     ${sysconfdir}/my.cnf.d/server.cnf \
     ${sysconfdir}/security/user_map.conf \
 "
+
+FILES:${PN}-server:append:wrynose = " ${datadir}/mariadb/"

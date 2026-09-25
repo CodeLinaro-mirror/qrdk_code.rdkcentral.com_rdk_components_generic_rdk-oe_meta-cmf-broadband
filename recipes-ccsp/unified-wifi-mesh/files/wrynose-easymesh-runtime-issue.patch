@@ -1,0 +1,87 @@
+Upstream-Status: Pending
+
+--- a/inc/em_base.h	2026-09-24 09:43:19.732433674 +0000
++++ b/inc/em_base.h	2026-09-24 09:43:19.728433654 +0000
+@@ -2164,7 +2164,7 @@
+ typedef struct {
+     unsigned short  id;
+     unsigned short len;
+-    unsigned char val[0];
++    unsigned char val[];
+ } __attribute__((__packed__)) data_elem_attr_t;
+ 
+ typedef enum {
+--- a/src/em/config/em_configuration.cpp	2026-09-24 09:43:19.728433654 +0000
++++ b/src/em/config/em_configuration.cpp	2026-09-24 09:43:19.732433674 +0000
+@@ -2762,7 +2762,7 @@
+     attr->id = htons(attr_id_assoc_state);
+     size = sizeof(unsigned short);
+     attr->len = htons(size);
+-    memcpy(attr->val, &rf_band, sizeof(attr->val));
++    memcpy(attr->val, &rf_band, 0);
+     
+     len += static_cast<unsigned short int> (sizeof(data_elem_attr_t) + size);
+     tmp += (sizeof(data_elem_attr_t) + size);
+@@ -2772,7 +2772,7 @@
+     attr->id = htons(attr_id_cfg_error);
+     size = sizeof(unsigned short);
+     attr->len = htons(size);
+-    memcpy(attr->val, &rf_band, sizeof(attr->val));
++    memcpy(attr->val, &rf_band, 0);
+     
+     len += static_cast<unsigned short int> (sizeof(data_elem_attr_t) + size);
+     tmp += (sizeof(data_elem_attr_t) + size);
+@@ -2782,7 +2782,7 @@
+     attr->id = htons(attr_id_device_password_id);
+     size = sizeof(unsigned short);
+     attr->len = htons(size);
+-    memcpy(attr->val, &rf_band, sizeof(attr->val));
++    memcpy(attr->val, &rf_band, 0);
+     
+     len += static_cast<unsigned short int> (sizeof(data_elem_attr_t) + size);
+     tmp += (sizeof(data_elem_attr_t) + size);
+@@ -2792,7 +2792,7 @@
+     size = EM_OS_VERSION_LEN;
+     attr->len = htons(size);
+     memset(attr->val, 0, size);
+-    //memcpy(attr->val, &rf_band, sizeof(attr->val));
++    //memcpy(attr->val, &rf_band, 0);
+     
+     len += static_cast<unsigned short int> (sizeof(data_elem_attr_t) + size);
+     tmp += (sizeof(data_elem_attr_t) + size);
+@@ -3189,7 +3189,7 @@
+     attr->id = htons(attr_id_assoc_state);
+     size = sizeof(unsigned short);
+     attr->len = htons(size);
+-    memcpy(attr->val, &rf_band, sizeof(attr->val));
++    memcpy(attr->val, &rf_band, 0);
+ 
+     len += static_cast<unsigned short int> (sizeof(data_elem_attr_t) + size);
+     tmp += (sizeof(data_elem_attr_t) + size);
+@@ -3199,7 +3199,7 @@
+     attr->id = htons(attr_id_device_password_id);
+     size = sizeof(unsigned short);
+     attr->len = htons(size);
+-    memcpy(attr->val, &rf_band, sizeof(attr->val));
++    memcpy(attr->val, &rf_band, 0);
+ 
+     len += static_cast<unsigned short int> (sizeof(data_elem_attr_t) + size);
+     tmp += (sizeof(data_elem_attr_t) + size);
+@@ -3209,7 +3209,7 @@
+     attr->id = htons(attr_id_cfg_error);
+     size = sizeof(unsigned short);
+     attr->len = htons(size);
+-    memcpy(attr->val, &rf_band, sizeof(attr->val));
++    memcpy(attr->val, &rf_band, 0);
+ 
+     len += static_cast<unsigned short int> (sizeof(data_elem_attr_t) + size);
+     tmp += (sizeof(data_elem_attr_t) + size);
+@@ -3220,7 +3220,7 @@
+     size = EM_OS_VERSION_LEN;
+     attr->len = htons(size);
+     memset(attr->val, 0, size);
+-    //memcpy(attr->val, &rf_band, sizeof(attr->val));
++    //memcpy(attr->val, &rf_band, 0);
+ 
+     len += static_cast<unsigned short int> (sizeof(data_elem_attr_t) + size);
+     tmp += (sizeof(data_elem_attr_t) + size);
