@@ -10,8 +10,8 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 FETCHCMD_wget = "/usr/bin/env wget -t 2 -T 30 --passive-ftp --user-agent='BitBake-Kirkstone/2.18'"
 # Source repository
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/ieee1905-rs.git;branch=develop;protocol=https', 'git://github.com/rdkcentral/ieee1905-rs.git;nobranch=1;protocol=https', d)}"
-SRCREV = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', '9eb6127c05250f0174a113688d7e577e1af35732', d)}"
-PV = "v0.6.0"
+SRCREV = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', '9856eb9feb5894fe7f33bd9dd0907cef65dd3fb4', d)}"
+PV = "v0.7.0"
 
 SRC_URI += "\
      ${@bb.utils.contains('DISTRO_FEATURES','em_extender',' file://ieee1905_em_ext_agent.service ',' file://ieee1905_em_agent.service ',d)} \
@@ -39,6 +39,9 @@ S = "${WORKDIR}/git"
 
 #dependencies from crates.io
 require ${@bb.utils.contains('DISTRO_FEATURES','BuildFromTip','includes/ieee1905_dependencies_tip.inc','includes/ieee1905_dependencies.inc',d)}
+
+#to enable the rbus feature
+CARGO_BUILD_FLAGS += " --features=rbus"
 
 do_install_append() {
     install -d ${D}${systemd_unitdir}/system
