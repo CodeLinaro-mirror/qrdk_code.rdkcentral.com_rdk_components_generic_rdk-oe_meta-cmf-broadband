@@ -73,7 +73,7 @@ do_install:append() {
        cp ${UNPACKDIR}/ext_em_agent.service ${UNPACKDIR}/em_agent.service
     else
        install -m 664 ${S}/install/config/*  ${D}/usr/ccsp/EasyMesh
-       install -m 755 ${WORKDIR}/em_ctrl_pre_start_rdkb.sh ${D}/usr/ccsp/EasyMesh
+       install -m 755 ${UNPACKDIR}/em_ctrl_pre_start_rdkb.sh ${D}/usr/ccsp/EasyMesh
     fi
     install -D -m 0644 ${UNPACKDIR}/em_*.service ${D}${systemd_unitdir}/system/
 
