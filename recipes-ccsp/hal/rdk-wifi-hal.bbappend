@@ -16,7 +16,7 @@ do_install:append() {
      DISTRO_EM_ENABLED="${@bb.utils.contains('DISTRO_FEATURES','EasyMesh','true','false',d)}"
      if [ $DISTRO_EM_ENABLED = 'true' ]; then
         install -d ${D}/usr/ccsp/EasyMesh
-        install -m 0644 ${WORKDIR}/Easymesh*.json  ${D}/usr/ccsp/EasyMesh/EasymeshCfg.json
+        install -m 0644 ${UNPACKDIR}/Easymesh*.json  ${D}/usr/ccsp/EasyMesh/EasymeshCfg.json
      fi
 }
 
