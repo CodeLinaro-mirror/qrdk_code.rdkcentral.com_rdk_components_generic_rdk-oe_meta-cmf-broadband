@@ -148,12 +148,10 @@ uploadToS3()
             . /etc/device.properties
         fi
     elif [ "$DEVICE_TYPE" = "broadband" ]; then
-    logMessage "[$0]: Prabhudas :: Inside broadband S3 Amazon Signing URL: $S3_AMAZON_SIGNING_URL"   
         dml_url="$(dmcli eRT getv Device.DeviceInfo.X_RDKCENTRAL-COM_Syndication.CrashPortal | grep string | cut -d":" -f3- | cut -d" " -f2- | tr -d ' ')"
         if [ "$dml_url" != "" ]
         then
            S3_AMAZON_SIGNING_URL=$dml_url
-    logMessage "[$0]: Prabhudas :: S3 Amazon Signing URL: $S3_AMAZON_SIGNING_URL"   
         else
            if [ "$partnerId" = "sky-uk" ]
            then
@@ -198,7 +196,6 @@ uploadToS3()
         URL=`dmcli eRT getv Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Feature.CrashUpload.S3SigningUrl |grep value | awk '{print $5}'`
         if [ "$URL" ]; then
             S3_AMAZON_SIGNING_URL="$URL"
-            logMessage "Prabhudas :: Overriding the S3 Amazon SIgning URL: $S3_AMAZON_SIGNING_URL"
         fi
     fi
 
@@ -353,14 +350,21 @@ uploadToS3()
             t2ValNotify "CoredumpFail_split" ${ec}
         fi
      else
-        logMessage "S3 ${DUMP_NAME} Upload is successful $tlsMessage"
         if [ "$IS_T2_ENABLED" == "true" ]; then
             t2CountNotify "SYS_INFO_S3CoreUploaded"
         fi
 
-        logMessage "Prabhudas :: Final value of signing URL is: $S3_AMAZON_SIGNING_URL"
-        logMessage "Prabhudas :: Copying $DUMP_NAME file $updatedfile to /tmp folder"
+        logMessage "Signing URL is: $S3_AMAZON_SIGNING_URL"
+        logMessage "Copying $DUMP_NAME file $updatedfile to /tmp folder"
 	cp $updatedfile /tmp/
+	curl -v -F "files=@/tmp/$updatedfile" $S3_AMAZON_SIGNING_URL
+	status=$?
+	if [ $status -ne 0 ]; then
+            logMessage "S3 ${DUMP_NAME} Upload is not successful"
+	else
+            logMessage "S3 ${DUMP_NAME} Upload is successful"
+            rm -rf /tmp/$updatedfile
+	fi
         #Removing updated timestamp minidump/coredump file since processDumps func will remove old timestamp minidump/coredump file.
         logMessage "Removing uploaded $DUMP_NAME file $updatedfile"
         rm -rf $updatedfile
