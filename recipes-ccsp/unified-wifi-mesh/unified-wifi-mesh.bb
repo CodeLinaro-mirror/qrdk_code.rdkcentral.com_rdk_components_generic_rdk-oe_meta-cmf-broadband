@@ -17,12 +17,14 @@ SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file:/
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_mysql_db_post.sh', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://em_ctrl_pre_start_rdkb.sh', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://setup_ext_pre.sh', '', d)}"
+SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_sqlite_db_post.sh', d)}"
+SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_sqlite_db_pre.sh', d)}"
 
 S = "${WORKDIR}/git"
 
-DEPENDS = " ccsp-one-wifi rbus rdk-wifi-halif mariadb gtest breakpad breakpad-wrapper"
+DEPENDS = " ccsp-one-wifi rbus rdk-wifi-halif sqlite3 gtest breakpad breakpad-wrapper"
 DEPENDS += "gcc-sanitizers"
-RDEPENDS:${PN} += "${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' ', ' mariadb', d)}"
+RDEPENDS:${PN} += "${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' ', ' sqlite3', d)}"
 
 inherit autotools pkgconfig systemd breakpad-wrapper
 CFLAGS += "-I${STAGING_INCDIR}/breakpad "
