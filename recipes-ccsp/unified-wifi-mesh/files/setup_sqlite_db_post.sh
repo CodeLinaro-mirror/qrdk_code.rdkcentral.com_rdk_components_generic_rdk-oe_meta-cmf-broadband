@@ -6,7 +6,6 @@ set -eu
 DB_DIR="${EASYMESH_DB_DIR:-/var/lib/unified-wifi-mesh}"
 DB_FILE="${EASYMESH_DB_FILE:-$DB_DIR/unified_wifi_mesh.db}"
 DB_MARKER="${EASYMESH_DB_MARKER:-/nvram/sqlite_db_data_exists}"
-EASYMESH_CONFIG_FILE="${EASYMESH_CONFIG_FILE:-/nvram/EasymeshCfg.json}"
 EASYMESH_DB_LOG="${EASYMESH_DB_LOG:-/tmp/setup_sqlite_db_post.log}"
 
 # Capture output because this script may be launched by the controller process.

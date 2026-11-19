@@ -6,16 +6,17 @@ do
    sleep 1;
 done
 
-#Ensure backhaul connectivity is established
-al_mac_addr=`cat /nvram/EasymeshCfg.json | grep AL_MAC_ADDR  | cut -d '"' -f4`
-channel_exists=`iw dev | grep $al_mac_addr  -A 4 | grep channel | wc -l`
-ssid_exists=`iw dev | grep $al_mac_addr -A 4 | grep ssid | wc -l`
+#Ensure backhaul connectivity is established on the backhaul STA interface.
+#The AL MAC in EasymeshCfg.json is written by the agent after it starts, so it cannot be used here.
+bsta_ifname="wifi1.3"
+channel_exists=`iw dev $bsta_ifname info 2>/dev/null | grep channel | wc -l`
+ssid_exists=`iw dev $bsta_ifname info 2>/dev/null | grep ssid | wc -l`
 
 while [ "$channel_exists" != 1 ] && [ "$ssid_exists" != 1 ] ;
 do
   sleep 1;
-  channel_exists=`iw dev | grep $al_mac_addr  -A 4 | grep channel | wc -l`
-  ssid_exists=`iw dev | grep $al_mac_addr -A 4 | grep ssid | wc -l`
+  channel_exists=`iw dev $bsta_ifname info 2>/dev/null | grep channel | wc -l`
+  ssid_exists=`iw dev $bsta_ifname info 2>/dev/null | grep ssid | wc -l`
 done
 
 #Run udhcpc to get ipaddr of brlan0 interface for connected clients internet connectivity
