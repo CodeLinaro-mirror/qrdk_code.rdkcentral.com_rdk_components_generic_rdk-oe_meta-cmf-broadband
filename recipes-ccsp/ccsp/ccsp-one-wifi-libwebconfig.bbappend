@@ -1,7 +1,7 @@
 inherit coverity
 
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/OneWifi.git;protocol=https;branch=develop;name=libwebconfig', 'git://github.com/rdkcentral/OneWifi.git;protocol=https;nobranch=1;name=libwebconfig', d)}"
-SRCREV_libwebconfig = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', '6476d0d70fcbfa069552dbf273ef51886020a160', d)}"
+SRCREV_libwebconfig = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', 'fc6c3b2a3433140b645a93bffea5c9fbed172e83', d)}"
 
 DEPENDS += " ${@bb.utils.contains('DISTRO_FEATURES', 'EasyMesh', ' rdk-wifi-libhostap unified-wifi-mesh-header ', '', d)}"
 EXTRA_OECONF_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'EasyMesh', ' --enable-easymesh ', '', d)}"
