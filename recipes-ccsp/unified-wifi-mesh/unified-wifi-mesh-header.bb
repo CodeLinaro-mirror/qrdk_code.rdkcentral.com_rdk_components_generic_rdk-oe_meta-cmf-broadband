@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=e0b1ae637439c7d6f4487fb90163c79a"
 
 SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', 'git://github.com/rdkcentral/unified-wifi-mesh.git;branch=develop;protocol=https;name=Unified-wifi-mesh_header', 'git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh_header', d)}"
 PV = "v0.3.1"
-SRCREV_Unified-wifi-mesh_header = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', 'c850a0ce2074b8cd88931d0a6dc629e8b0ee6b3f', d)}"
+SRCREV_Unified-wifi-mesh_header = "${@bb.utils.contains('DISTRO_FEATURES', 'BuildFromTip', '${AUTOREV}', 'a8fb93e9a45340cc2bcd01d35027c4f16962481b', d)}"
 SRCREV_FORMAT = "Unified-wifi-mesh_header"
 
 S = "${WORKDIR}/git"
